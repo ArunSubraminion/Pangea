@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pangea - Ground Effect Cargo Drone</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
             --primary-color: #000000;
@@ -19,7 +22,7 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Poppins', 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
         }
 
         body {
@@ -79,11 +82,9 @@
             text-decoration: none;
             color: var(--text-color);
             font-weight: 500;
-            font-size: 16px;
+            font-size: 15px;
             transition: color 0.3s;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            font-size: 14px;
+            letter-spacing: 0.3px;
         }
 
         .nav-links a:hover {
@@ -120,25 +121,22 @@
         }
 
         .hero h1 {
-            font-size: 48px;
+            font-size: 52px;
             margin-bottom: 20px;
             color: var(--primary-color);
-            font-weight: 800;
-            letter-spacing: -1px;
-            line-height: 1.2;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            line-height: 1.1;
         }
 
         .hero p {
             font-size: 18px;
             margin-bottom: 30px;
             color: var(--dark-gray);
-        }
-
-        .hero-buttons {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            margin-bottom: 50px;
+            font-weight: 300;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
         }
 
         .primary-button {
@@ -202,11 +200,11 @@
         }
 
         .section-title h2 {
-            font-size: 36px;
+            font-size: 38px;
             color: var(--primary-color);
             margin-bottom: 15px;
-            font-weight: 800;
-            letter-spacing: -0.5px;
+            font-weight: 700;
+            letter-spacing: -0.3px;
         }
 
         .section-title p {
@@ -214,6 +212,8 @@
             color: var(--dark-gray);
             max-width: 600px;
             margin: 0 auto;
+            font-weight: 300;
+            line-height: 1.6;
         }
 
         .features-grid {
@@ -243,15 +243,18 @@
         }
 
         .feature-card h3 {
-            font-size: 22px;
+            font-size: 20px;
             margin-bottom: 15px;
             color: var(--primary-color);
-            font-weight: 700;
+            font-weight: 600;
+            letter-spacing: 0.2px;
         }
 
         .feature-card p {
-            font-size: 16px;
+            font-size: 15px;
             color: var(--dark-gray);
+            font-weight: 300;
+            line-height: 1.6;
         }
 
         /* Specs Section */
@@ -869,7 +872,7 @@
         <div class="container">
             <nav class="navbar">
                 <a href="#" class="logo">
-                    <span class="logo-icon">✈</span>Pangea
+                    <img src="/images/logo.png" alt="Pangea Logo" height="40">
                 </a>
                 <ul class="nav-links">
                     <li><a href="#features">Features</a></li>
@@ -889,13 +892,9 @@
             <div class="hero-content">
                 <h1>Revolutionary Ground Effect Cargo Drone</h1>
                 <p>Efficient, autonomous, and eco-friendly cargo transportation using ground effect technology for unprecedented range and payload capacity.</p>
-                <div class="hero-buttons">
-                    <a href="#" class="primary-button">Request Demo</a>
-                    <a href="#" class="secondary-button">Learn More</a>
-                </div>
             </div>
             <div class="hero-image">
-                <img src="www.pangeacraft/images/hero-drone.jpg" alt="Pangea Ground Effect Cargo Drone">
+                <img src="/images/hero-drone.png" alt="Pangea Ground Effect Cargo Drone">
             </div>
         </div>
     </section>
@@ -947,7 +946,7 @@
         <div class="container">
             <div class="specs-container">
                 <div class="specs-image">
-                    <img src="www.pangeacraft/images/tech-specs.jpg" alt="Pangea Technical Specifications">
+                    <img src="/images/tech-specs.png" alt="Pangea Technical Specifications">
                 </div>
                 <div class="specs-content">
                     <h2>Technical Specifications</h2>
@@ -999,12 +998,16 @@
         <div class="container">
             <div class="section-title">
                 <h2>Our Journey</h2>
-                <p>The evolution of Pangea from concept to revolutionary cargo transportation solution</p>
+
+
+
+
+<p>The evolution of Pangea from concept to revolutionary cargo transportation solution</p>
             </div>
             <div class="timeline">
-<div class="timeline-aircraft" id="timeline-aircraft">
+                <div class="timeline-aircraft" id="timeline-aircraft">
                     <!-- Modern Black SVG Aircraft Icon -->
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="current Color" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="aircraft-svg">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="aircraft-svg">
                         <path d="M22 12H18L15 21H13L14 12H10L8 17H6L7 12H2L3 9H7L8 4H10L12 9H14L13 4H15L18 9H22L22 12Z"/>
                     </svg>
                 </div>
@@ -1015,7 +1018,7 @@
                         <h3>The Beginning</h3>
                         <p>Pangea founded by Dr. Sarah Chen and Michael Rodriguez after collaborative research at MIT's Aeronautics Lab on ground effect vehicles for commercial applications.</p>
                         <div class="timeline-image">
-                            <img src="www.pangeacraft/images/founding-team.jpg" alt="Pangea founding team">
+                            <img src="/images/founding-team.png" alt="Pangea founding team">
                         </div>
                     </div>
                 </div>
@@ -1026,7 +1029,7 @@
                         <h3>First Prototype</h3>
                         <p>Successful development and test flight of our first small-scale prototype, demonstrating the viability of our ground effect technology for cargo applications.</p>
                         <div class="timeline-image">
-                            <img src="www.pangeacraft/images/first-prototype.jpg" alt="First prototype">
+                            <img src="/images/first-prototype.png" alt="First prototype">
                         </div>
                     </div>
                 </div>
@@ -1037,7 +1040,7 @@
                         <h3>Series A Funding</h3>
                         <p>Secured $18 million in Series A funding led by Blue Horizon Ventures to scale our technology and build a full-size demonstration model.</p>
                         <div class="timeline-image">
-                            <img src="www.pangeacraft/images/funding-announcement.jpg" alt="Funding announcement">
+                            <img src="/images/funding-announcement.png" alt="Funding announcement">
                         </div>
                     </div>
                 </div>
@@ -1048,7 +1051,7 @@
                         <h3>GE-100 Launch</h3>
                         <p>Unveiled our first production model, the GE-100, capable of carrying 500kg payload over 300km. Began pilot programs with select logistics partners.</p>
                         <div class="timeline-image">
-                            <img src="www.pangeacraft/images/ge-100-launch.jpg" alt="GE-100 Launch">
+                            <img src="/images/ge-100-launch.png" alt="GE-100 Launch">
                         </div>
                     </div>
                 </div>
@@ -1059,7 +1062,7 @@
                         <h3>Regulatory Approval</h3>
                         <p>Obtained FAA certification for commercial operations in designated corridors. Established partnerships with major coastal shipping companies.</p>
                         <div class="timeline-image">
-                            <img src="www.pangeacraft/images/faa-certification.jpg" alt="FAA Certification">
+                            <img src="/images/faa-certification.png" alt="FAA Certification">
                         </div>
                     </div>
                 </div>
@@ -1070,7 +1073,7 @@
                         <h3>GE-200 Revolution</h3>
                         <p>Launching our flagship GE-200 model with 2-ton capacity and advanced autonomous features, revolutionizing mid-range cargo transport with 40% cost reduction compared to traditional methods.</p>
                         <div class="timeline-image">
-                            <img src="www.pangeacraft/images/ge-200-launch.jpg" alt="GE-200 Launch">
+                            <img src="/images/ge-200-launch.png" alt="GE-200 Launch">
                         </div>
                     </div>
                 </div>
@@ -1088,7 +1091,7 @@
             <div class="team-grid">
                 <div class="team-member">
                     <div class="member-image">
-                        <img src="www.pangeacraft/images/anil.png" alt="Anıl Yılmaz">
+                        <img src="/images/anil.png" alt="Anıl Yılmaz">
                     </div>
                     <h3>Anıl Yılmaz</h3>
                     <p class="position">Senior Flight Control Engineer</p>
@@ -1100,7 +1103,7 @@
                 </div>
                 <div class="team-member">
                     <div class="member-image">
-                        <img src="www.pangeacraft/images/moritz.png" alt="Moritz Büsing">
+                        <img src="/images/moritz.png" alt="Moritz Büsing">
                     </div>
                     <h3>Moritz Büsing</h3>
                     <p class="position">Senior Power Train Engineer</p>
@@ -1112,7 +1115,7 @@
                 </div>
                 <div class="team-member">
                     <div class="member-image">
-                        <img src="www.pangeacraft/images/gilho.png" alt="Lee Gil Ho">
+                        <img src="/images/gilho.png" alt="Lee Gil Ho">
                     </div>
                     <h3>Lee Gil Ho</h3>
                     <p class="position">Head of Flight Control & Automation</p>
@@ -1122,21 +1125,10 @@
                         <a href="#" class="social-icon">🐦</a>
                     </div>
                 </div>
+
                 <div class="team-member">
                     <div class="member-image">
-                        <img src="www.pangeacraft/images/team-sarah.jpg" alt="Dr. Sarah Chen">
-                    </div>
-                    <h3>Dr. Sarah Chen</h3>
-                    <p class="position">Chief Executive Officer</p>
-                    <p class="bio">Former NASA aerospace engineer with 15+ years experience in advanced aircraft design and aerodynamics. Ph.D. in Aerospace Engineering from MIT with focus on sustainable aviation technologies.</p>
-                    <div class="social-links">
-                        <a href="#" class="social-icon">in</a>
-                        <a href="#" class="social-icon">🐦</a>
-                    </div>
-                </div>
-                <div class="team-member">
-                    <div class="member-image">
-                        <img src="www.pangeacraft/images/arun.png" alt="Arun Subramanian">
+                        <img src="/images/arun.png" alt="Arun Subramanian">
                     </div>
                     <h3>Arun Subramanian</h3>
                     <p class="position">Chief Aerodynamics Officer</p>
@@ -1153,10 +1145,29 @@
                 <p>Industry experts guiding our vision and strategic direction</p>
             </div>
             <div class="advisors-grid">
-
                 <div class="advisor">
                     <div class="advisor-image">
-                        <img src="www.pangeacraft/images/advisor-franck.jpg" alt="Franck Doyen">
+                        <img src="/images/advisor-akira.png" alt="Prof. Akira Yamamoto">
+                    </div>
+                    <div class="advisor-info">
+                        <h3>Prof. Akira Yamamoto</h3>
+                        <p class="position">Technical Advisor, Aerospace Engineering</p>
+                        <p class="bio">Leading authority on ground effect aerodynamics at Tokyo Institute of Technology. Author of 40+ research papers on advanced aerial vehicle design.</p>
+                    </div>
+                </div>
+                <div class="advisor">
+                    <div class="advisor-image">
+                        <img src="/images/advisor-jennifer.png" alt="Dr. Jennifer Walsh">
+                    </div>
+                    <div class="advisor-info">
+                        <h3>Dr. Jennifer Walsh</h3>
+                        <p class="position">Regulatory Affairs Consultant</p>
+                        <p class="bio">Former FAA Director of Unmanned Systems Integration with expertise in SC-VTOL compliance. Specializes in navigating certification processes for novel aircraft.</p>
+                    </div>
+                </div>
+                <div class="advisor">
+                    <div class="advisor-image">
+                        <img src="/images/advisor-franck.png" alt="Franck Doyen">
                     </div>
                     <div class="advisor-info">
                         <h3>Franck Doyen</h3>
@@ -1166,7 +1177,7 @@
                 </div>
                 <div class="advisor">
                     <div class="advisor-image">
-                        <img src="www.pangeacraft/images/advisor-taekyu.jpg" alt="Dr. Taekyu Ryu">
+                        <img src="/images/advisor-taekyu.png" alt="Dr. Taekyu Ryu">
                     </div>
                     <div class="advisor-info">
                         <h3>Dr. Taekyu Ryu</h3>
@@ -1241,7 +1252,7 @@
             <div class="footer-container">
                 <div class="footer-about">
                     <a href="#" class="footer-logo">
-                        <span class="logo-icon">✈</span>Pangea
+                        <img src="/images/logo.png" alt="Pangea Logo" height="30">
                     </a>
                     <p>Pioneering the future of logistics with ground effect technology that makes cargo transportation more efficient, affordable, and environmentally sustainable.</p>
                 </div>
@@ -1379,5 +1390,3 @@
     </script>
 </body>
 </html>
-
-
