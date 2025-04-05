@@ -1,0 +1,1505 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pangea - Ground Effect Cargo Drone</title>
+    <!-- Pretendard font (same as airbility.co.kr) -->
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css" />
+    <!-- Anime.js for animations -->
+    <script src="anime.min.js"></script>
+    <style>
+        :root {
+            --primary-color: #000000;
+            --secondary-color: #222222;
+            --text-color: #333333;
+            --light-gray: #f5f5f5;
+            --medium-gray: #e0e0e0;
+            --dark-gray: #666666;
+            --accent-color: #d1d1d1;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Pretendard Variable', Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, 'Helvetica Neue', 'Segoe UI', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', sans-serif;
+        }
+
+        body {
+            color: var(--text-color);
+            line-height: 1.6;
+            background-color: white;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            background-color: white;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            padding: 15px 0;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary-color);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            letter-spacing: -0.5px;
+        }
+        
+        .logo-text {
+            margin-left: 10px;
+            font-weight: 700;
+            font-size: 24px;
+        }
+
+        .logo-icon {
+            margin-right: 8px;
+            font-size: 28px;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-links li {
+            margin-left: 30px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-color);
+            font-weight: 500;
+            font-size: 15px;
+            transition: color 0.3s;
+            letter-spacing: -0.02em;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-color);
+        }
+
+        .nav-button {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 0;
+            font-weight: 500;
+            text-decoration: none;
+            transition: background-color 0.3s;
+            text-transform: uppercase;
+            letter-spacing: -0.02em;
+            font-size: 14px;
+        }
+
+        .nav-button:hover {
+            background-color: var(--secondary-color);
+        }
+
+        /* Banner Section */
+        .banner {
+            position: relative;
+            width: 100%;
+            height: 372px;
+            margin: 0 auto;
+            overflow: hidden;
+            margin-top: 80px;
+            margin-bottom: 60px;
+            max-width: none; /* Remove max-width restriction */
+        }
+
+        .ad-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            background-color: transparent;
+        }
+
+        .layer {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .video-background {
+            z-index: 1;
+            overflow: hidden;
+            width: 100%;
+            height: 100%;
+        }
+
+        .video-background video {
+            width: 100vw; /* Full viewport width */
+            height: 100%;
+            object-fit: cover;
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+
+        .content-container {
+            position: relative;
+            max-width: 1200px;
+            height: 100%;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .slogan-overlay {
+            z-index: 2;
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            padding-top: 12px;
+            opacity: 0;
+        }
+
+        .slogan-overlay img {
+            width: auto;
+            max-width: 90%;
+            height: auto;
+        }
+
+        .logo-overlay {
+            z-index: 3;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+        }
+
+        .logo-overlay img {
+            width: auto;
+            max-width: 80%;
+            height: auto;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #ffffff 0%, #f2f2f2 100%);
+            padding: 80px 0 100px;
+            text-align: center;
+        }
+
+        .hero-content {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .hero h1 {
+            font-size: 52px;
+            margin-bottom: 20px;
+            color: var(--primary-color);
+            font-weight: 700;
+            letter-spacing: -0.05em;
+            line-height: 1.1;
+        }
+
+        .hero p {
+            font-size: 18px;
+            margin-bottom: 30px;
+            color: var(--dark-gray);
+            font-weight: 400;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            letter-spacing: -0.02em;
+        }
+
+        .primary-button {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 15px 30px;
+            border-radius: 0;
+            font-weight: 500;
+            text-decoration: none;
+            transition: background-color 0.3s;
+            font-size: 16px;
+            text-transform: uppercase;
+            letter-spacing: -0.02em;
+        }
+
+        .primary-button:hover {
+            background-color: var(--secondary-color);
+        }
+
+        .secondary-button {
+            background-color: transparent;
+            color: var(--primary-color);
+            padding: 15px 30px;
+            border-radius: 0;
+            font-weight: 500;
+            text-decoration: none;
+            transition: all 0.3s;
+            border: 1px solid var(--primary-color);
+            font-size: 16px;
+            text-transform: uppercase;
+            letter-spacing: -0.02em;
+        }
+
+        .secondary-button:hover {
+            background-color: var(--light-gray);
+        }
+
+        .hero-image {
+            max-width: 80%;
+            margin: 0 auto;
+            border-radius: 0;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .hero-image img {
+            width: 100%;
+            display: block;
+            filter: grayscale(100%);
+        }
+
+        /* Features Section */
+        .features {
+            padding: 80px 0;
+            background-color: white;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-title h2 {
+            font-size: 38px;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            font-weight: 700;
+            letter-spacing: -0.05em;
+        }
+
+        .section-title p {
+            font-size: 18px;
+            color: var(--dark-gray);
+            max-width: 600px;
+            margin: 0 auto;
+            font-weight: 400;
+            line-height: 1.6;
+            letter-spacing: -0.02em;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+
+        .feature-card {
+            background-color: white;
+            border: 1px solid var(--medium-gray);
+            border-radius: 0;
+            padding: 30px;
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+        }
+
+        .feature-icon {
+            font-size: 40px;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+        }
+
+        .feature-card h3 {
+            font-size: 20px;
+            margin-bottom: 15px;
+            color: var(--primary-color);
+            font-weight: 600;
+            letter-spacing: -0.03em;
+        }
+
+        .feature-card p {
+            font-size: 15px;
+            color: var(--dark-gray);
+            font-weight: 400;
+            line-height: 1.6;
+            letter-spacing: -0.02em;
+        }
+
+        /* Specs Section */
+        .specs {
+            padding: 80px 0;
+            background-color: var(--light-gray);
+        }
+
+        .specs-container {
+            display: flex;
+            align-items: center;
+            gap: 50px;
+        }
+
+        .specs-image {
+            flex: 1;
+            border-radius: 0;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .specs-image img {
+            width: 100%;
+            display: block;
+            filter: grayscale(100%);
+        }
+
+        .specs-content {
+            flex: 1;
+        }
+
+        .specs-content h2 {
+            font-size: 36px;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            font-weight: 700;
+            letter-spacing: -0.05em;
+        }
+
+        .specs-content p {
+            font-size: 16px;
+            color: var(--dark-gray);
+            margin-bottom: 30px;
+            letter-spacing: -0.02em;
+        }
+
+        .specs-list {
+            list-style: none;
+        }
+
+        .specs-list li {
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            border-bottom: 1px solid var(--medium-gray);
+            padding-bottom: 10px;
+        }
+
+        .specs-list .icon {
+            margin-right: 15px;
+            color: var(--primary-color);
+            font-size: 22px;
+        }
+
+        .spec-title {
+            font-weight: 600;
+            margin-right: 10px;
+        }
+
+        /* History & Milestones Section */
+        .history {
+            padding: 80px 0;
+            background-color: white;
+        }
+        
+        .timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px 0;
+        }
+        
+        .timeline::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            width: 2px;
+            background-color: var(--primary-color);
+            transform: translateX(-50%);
+        }
+        
+        .timeline-item {
+            position: relative;
+            margin-bottom: 60px;
+        }
+        
+        .timeline-item:last-child {
+            margin-bottom: 0;
+        }
+        
+        .timeline-aircraft {
+            position: fixed;
+            width: 40px;
+            height: 40px;
+            background-color: white;
+            border-radius: 0;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            z-index: 10;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            transition: top 0.3s ease;
+            opacity: 0;
+        }
+        
+        /* Aircraft icon style options */
+        .aircraft-emoji {
+            font-size: 24px;
+        }
+        
+        .aircraft-svg {
+            width: 24px;
+            height: 24px;
+            stroke: var(--primary-color);
+            fill: none;
+        }
+        
+        .custom-aircraft {
+            width: 24px;
+            height: 24px;
+        }
+        
+        .timeline-active-point {
+            position: absolute;
+            left: 50%;
+            width: 16px;
+            height: 16px;
+            background-color: var(--primary-color);
+            border-radius: 0;
+            transform: translateX(-50%) rotate(45deg);
+            z-index: 2;
+        }
+        
+        .timeline-date {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-170px);
+            background-color: var(--primary-color);
+            color: white;
+            padding: 6px 16px;
+            border-radius: 0;
+            font-weight: 600;
+            font-size: 14px;
+            letter-spacing: -0.02em;
+        }
+        
+        .timeline-content {
+            position: relative;
+            background-color: white;
+            border: 1px solid var(--medium-gray);
+            border-radius: 0;
+            padding: 20px;
+            width: calc(50% - 40px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .timeline-item:nth-child(odd) .timeline-content {
+            margin-left: auto;
+        }
+        
+        .timeline-item:nth-child(even) .timeline-date {
+            transform: translateX(50px);
+            text-align: left;
+        }
+        
+        .timeline-content h3 {
+            font-size: 20px;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+            font-weight: 700;
+            letter-spacing: -0.03em;
+        }
+        
+        .timeline-content p {
+            font-size: 14px;
+            color: var(--dark-gray);
+            margin-bottom: 15px;
+            letter-spacing: -0.02em;
+        }
+
+        /* Team Section */
+        .team {
+            padding: 80px 0;
+            background-color: var(--light-gray);
+        }
+        
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 30px;
+        }
+        
+        .team-member {
+            background-color: white;
+            border-radius: 0;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s, box-shadow 0.3s;
+            border: 1px solid var(--medium-gray);
+        }
+        
+        .team-member:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .member-image {
+            overflow: hidden;
+        }
+        
+        .member-image img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            transition: transform 0.5s;
+            filter: grayscale(100%);
+        }
+        
+        .team-member:hover .member-image img {
+            transform: scale(1.05);
+        }
+        
+        .team-member h3 {
+            font-size: 18px;
+            margin: 15px 15px 5px;
+            color: var(--primary-color);
+            font-weight: 700;
+            letter-spacing: -0.03em;
+        }
+        
+        .team-member .position {
+            font-size: 14px;
+            color: var(--primary-color);
+            font-weight: 600;
+            margin: 0 15px 10px;
+            text-transform: uppercase;
+            letter-spacing: -0.02em;
+        }
+        
+        .team-member .bio {
+            font-size: 14px;
+            color: var(--dark-gray);
+            margin: 0 15px 15px;
+            line-height: 1.4;
+            letter-spacing: -0.02em;
+        }
+        
+        .social-links {
+            display: flex;
+            padding: 0 15px 15px;
+            gap: 10px;
+        }
+        
+        .social-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 30px;
+            height: 30px;
+            border-radius: 0;
+            background-color: var(--light-gray);
+            color: var(--primary-color);
+            text-decoration: none;
+            font-size: 14px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        
+        .social-icon:hover {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        /* Advisors & Consultants Styles */
+        .section-subtitle {
+            text-align: center;
+            margin: 60px 0 40px;
+        }
+        
+        .section-subtitle h2 {
+            font-size: 32px;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            font-weight: 700;
+            letter-spacing: -0.05em;
+        }
+        
+        .section-subtitle p {
+            font-size: 18px;
+            color: var(--dark-gray);
+            max-width: 600px;
+            margin: 0 auto;
+            letter-spacing: -0.02em;
+        }
+        
+        .advisors-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+        
+        .advisor {
+            display: flex;
+            background-color: white;
+            border-radius: 0;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+            transition: transform 0.3s, box-shadow 0.3s;
+            border: 1px solid var(--medium-gray);
+        }
+        
+        .advisor:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .advisor-image {
+            flex: 0 0 120px;
+            overflow: hidden;
+        }
+        
+        .advisor-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: grayscale(100%);
+        }
+        
+        .advisor-info {
+            flex: 1;
+            padding: 15px;
+        }
+        
+        .advisor-info h3 {
+            font-size: 18px;
+            color: var(--primary-color);
+            margin-bottom: 5px;
+            font-weight: 700;
+            letter-spacing: -0.03em;
+        }
+        
+        .advisor-info .position {
+            font-size: 14px;
+            color: var(--primary-color);
+            font-weight: 600;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: -0.02em;
+        }
+        
+        .advisor-info .bio {
+            font-size: 14px;
+            color: var(--dark-gray);
+            line-height: 1.4;
+            letter-spacing: -0.02em;
+        }
+
+        /* Contact Section */
+        .contact {
+            padding: 80px 0;
+            background-color: white;
+        }
+
+        .contact-container {
+            display: flex;
+            gap: 50px;
+        }
+
+        .contact-info {
+            flex: 1;
+        }
+
+        .contact-info h2 {
+            font-size: 36px;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            font-weight: 700;
+            letter-spacing: -0.05em;
+        }
+
+        .contact-info p {
+            font-size: 16px;
+            color: var(--dark-gray);
+            margin-bottom: 30px;
+            letter-spacing: -0.02em;
+        }
+
+        .contact-details {
+            list-style: none;
+        }
+
+        .contact-details li {
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            border-bottom: 1px solid var(--medium-gray);
+            padding-bottom: 10px;
+        }
+
+        .contact-details .icon {
+            margin-right: 15px;
+            color: var(--primary-color);
+            font-size: 22px;
+        }
+
+        .contact-form {
+            flex: 1;
+            background-color: var(--light-gray);
+            padding: 30px;
+            border-radius: 0;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+            text-transform: uppercase;
+            font-size: 12px;
+            letter-spacing: -0.02em;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid var(--medium-gray);
+            border-radius: 0;
+            font-size: 16px;
+            background-color: white;
+        }
+
+        .form-group textarea {
+            height: 120px;
+            resize: vertical;
+        }
+
+        .form-button {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 0;
+            font-weight: 500;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            text-transform: uppercase;
+            letter-spacing: -0.02em;
+        }
+
+        .form-button:hover {
+            background-color: var(--secondary-color);
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 60px 0 30px;
+        }
+
+        .footer-container {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 30px;
+        }
+
+        .footer-logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: white;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            letter-spacing: -0.5px;
+        }
+        
+        .footer-logo-text {
+            margin-left: 10px;
+            font-weight: 700;
+            font-size: 20px;
+            color: white;
+            letter-spacing: -0.03em;
+        }
+
+        .footer-about p {
+            font-size: 14px;
+            margin-bottom: 20px;
+            opacity: 0.8;
+            letter-spacing: -0.02em;
+        }
+
+        .footer-heading {
+            font-size: 16px;
+            margin-bottom: 20px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: -0.02em;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+            font-size: 14px;
+            opacity: 0.8;
+            transition: opacity 0.3s;
+            letter-spacing: -0.02em;
+        }
+
+        .footer-links a:hover {
+            opacity: 1;
+        }
+
+        .copyright {
+            margin-top: 40px;
+            text-align: center;
+            font-size: 14px;
+            color: white;
+            opacity: 0.8;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            letter-spacing: -0.02em;
+        }
+
+        /* Media Queries */
+        @media (max-width: 991px) {
+            .features-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .specs-container,
+            .contact-container {
+                flex-direction: column;
+            }
+            
+            .footer-container {
+                grid-template-columns: 1fr 1fr;
+            }
+            
+            .advisors-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 767px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .hero h1 {
+                font-size: 36px;
+            }
+            
+            .banner {
+                height: 250px;
+                margin-top: 70px;
+            }
+            
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .timeline::before {
+                left: 30px;
+            }
+            
+            .timeline-active-point {
+                left: 30px;
+            }
+            
+            .timeline-aircraft {
+                left: 30px;
+                transform: translateX(-50%);
+            }
+            
+            .timeline-date {
+                left: 0;
+                top: -30px;
+                transform: translateX(0);
+            }
+            
+            .timeline-content {
+                width: calc(100% - 80px);
+                margin-left: 60px !important;
+            }
+            
+            .timeline-item:nth-child(even) .timeline-date {
+                transform: translateX(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <nav class="navbar">
+                <a href="#" class="logo">
+                    <img src="/images/logo.png" alt="Pangea Logo" height="40">
+                    <span class="logo-text">PANGEA</span>
+                </a>
+                <ul class="nav-links">
+                    <li><a href="#features">Features</a></li>
+                    <li><a href="#specs">Specifications</a></li>
+                    <li><a href="#history">History</a></li>
+                    <li><a href="#team">Team</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                    <li><a href="#" class="nav-button">Get Started</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Banner Section -->
+    <section class="banner">
+        <div class="ad-container" id="mainAdContainer">
+            <div class="video-background layer">
+                <video autoplay muted loop>
+                    <source src="/images/d72f0f3f9d.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+            <div class="content-container">
+                <div class="slogan-overlay layer">
+                    <img src="/images/11bce99292.png" alt="Fast, Efficient, Autonomous Coastal Transport">
+                </div>
+                <div class="logo-overlay layer">
+                    <img src="/images/dd4f61ae9e.png" alt="PANGEA">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Revolutionary Ground Effect Cargo Drone</h1>
+                <p>Efficient, autonomous, and eco-friendly cargo transportation using ground effect technology for unprecedented range and payload capacity.</p>
+            </div>
+            <div class="hero-image">
+                <img src="/images/hero-drone.png" alt="Pangea Ground Effect Cargo Drone">
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features" id="features">
+        <div class="container">
+            <div class="section-title">
+                <h2>Revolutionary Capabilities</h2>
+                <p>Discover how our ground effect cargo drones transform logistics with enhanced efficiency and reduced costs</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">💨</div>
+                    <h3>Ground Effect Efficiency</h3>
+                    <p>Utilizing ground effect physics to achieve 40% greater fuel efficiency than traditional aircraft while flying just above water or flat terrain</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📦</div>
+                    <h3>High Payload Capacity</h3>
+                    <p>Carry up to 2 tons of cargo efficiently over distances of 500+ km, ideal for medium-range logistics operations</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🤖</div>
+                    <h3>Autonomous Navigation</h3>
+                    <p>Advanced AI systems enable fully autonomous operations with minimal human oversight for safe and reliable deliveries</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🔋</div>
+                    <h3>Hybrid Propulsion</h3>
+                    <p>Electric-combustion hybrid power system offers the perfect balance of efficiency, range, and environmental responsibility</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🌊</div>
+                    <h3>All-Weather Operation</h3>
+                    <p>Designed to operate in challenging weather conditions with stability systems that ensure reliable performance</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📡</div>
+                    <h3>Real-time Monitoring</h3>
+                    <p>Comprehensive telemetry and cargo condition monitoring with satellite connectivity for global tracking</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Specs Section -->
+    <section class="specs" id="specs">
+        <div class="container">
+            <div class="specs-container">
+                <div class="specs-image">
+                    <img src="/images/tech-specs.png" alt="Pangea Technical Specifications">
+                </div>
+                <div class="specs-content">
+                    <h2>Technical Specifications</h2>
+                    <p>The Pangea GE-200 combines cutting-edge aerodynamics with robust engineering to deliver unprecedented cargo transportation efficiency.</p>
+                    <ul class="specs-list">
+                        <li>
+                            <span class="icon">📏</span>
+                            <span class="spec-title">Dimensions:</span>
+                            <span>15m length × 12m wingspan × 3.5m height</span>
+                        </li>
+                        <li>
+                            <span class="icon">⚖️</span>
+                            <span class="spec-title">Max Payload:</span>
+                            <span>2,000 kg</span>
+                        </li>
+                        <li>
+                            <span class="icon">🛣️</span>
+                            <span class="spec-title">Range:</span>
+                            <span>500 km (full payload), 800 km (reduced payload)</span>
+                        </li>
+                        <li>
+                            <span class="icon">⚡</span>
+                            <span class="spec-title">Power System:</span>
+                            <span>Hybrid electric-combustion with 180 kW output</span>
+                        </li>
+                        <li>
+                            <span class="icon">🚀</span>
+                            <span class="spec-title">Cruise Speed:</span>
+                            <span>200 km/h</span>
+                        </li>
+                        <li>
+                            <span class="icon">🌡️</span>
+                            <span class="spec-title">Operating Conditions:</span>
+                            <span>-20°C to +45°C, wind up to 25 knots</span>
+                        </li>
+                        <li>
+                            <span class="icon">🔒</span>
+                            <span class="spec-title">Security:</span>
+                            <span>End-to-end encryption, redundant communication systems</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- History & Milestones Section -->
+    <section class="history" id="history">
+        <div class="container">
+            <div class="section-title">
+                <h2>Our Journey</h2>
+                <p>The evolution of Pangea from concept to revolutionary cargo transportation solution</p>
+            </div>
+            <div class="timeline">
+                <div class="timeline-aircraft" id="timeline-aircraft">
+                    <!-- Modern Black SVG Aircraft Icon -->
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="aircraft-svg">
+                        <path d="M22 12H18L15 21H13L14 12H10L8 17H6L7 12H2L3 9H7L8 4H10L12 9H14L13 4H15L18 9H22L22 12Z"/>
+                    </svg>
+                </div>
+                <div class="timeline-item" data-year="2025">
+                    <div class="timeline-active-point"></div>
+                    <div class="timeline-date">2025</div>
+                    <div class="timeline-content">
+                        <h3>The Beginning</h3>
+                        <p>First prototype developed - BREEZE: 1.5m scale aircraft serving as a 5kg technology demonstrator to validate our ground effect system design and engineering principles.</p>
+                    </div>
+                </div>
+                <div class="timeline-item" data-year="2026">
+                    <div class="timeline-active-point"></div>
+                    <div class="timeline-date">2026</div>
+                    <div class="timeline-content">
+                        <h3>GALE Development</h3>
+                        <p>4.5m scale demonstrator which can also be serial produced for specific use cases. GALE proves commercial viability with field tests in various conditions.</p>
+                    </div>
+                </div>
+                <div class="timeline-item" data-year="2027">
+                    <div class="timeline-active-point"></div>
+                    <div class="timeline-date">2027</div>
+                    <div class="timeline-content">
+                        <h3>STORM Prototype</h3>
+                        <p>12m full scale prototype cargo Ground Effect Aircraft capable of carrying significant payloads across medium-range routes with unmatched efficiency.</p>
+                    </div>
+                </div>
+                <div class="timeline-item" data-year="2028">
+                    <div class="timeline-active-point"></div>
+                    <div class="timeline-date">2028</div>
+                    <div class="timeline-content">
+                        <h3>STORM Production</h3>
+                        <p>Serial production begins for STORM models, with multiple units deployed to logistics partners for commercial operations in coastal and over-water routes.</p>
+                    </div>
+                </div>
+                <div class="timeline-item" data-year="2029">
+                    <div class="timeline-active-point"></div>
+                    <div class="timeline-date">2029</div>
+                    <div class="timeline-content">
+                        <h3>HURRICANE Design</h3>
+                        <p>Detailed design phase for HURRICANE, our 40m class aircraft for efficient large-scale cargo transportation, capable of revolutionizing medium and long-range shipping.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team Section -->
+    <section class="team" id="team">
+        <div class="container">
+            <div class="section-title">
+                <h2>Our Leadership Team</h2>
+                <p>Meet the experts behind Pangea's revolutionary ground effect cargo drone technology</p>
+            </div>
+            <div class="team-grid">
+                <div class="team-member">
+                    <div class="member-image">
+                        <img src="/images/anil.png" alt="Anıl Yılmaz">
+                    </div>
+                    <h3>Anıl Yılmaz</h3>
+                    <p class="position">Senior Flight Control Engineer</p>
+                    <p class="bio">Control and automation specialist with extensive experience developing flight control laws for VTOL and fixed-wing UAVs. Ph.D. candidate in Control and Automation Engineering from ITU.</p>
+                    <div class="social-links">
+                        <a href="#" class="social-icon">in</a>
+                        <a href="#" class="social-icon">🐦</a>
+                    </div>
+                </div>
+                <div class="team-member">
+                    <div class="member-image">
+                        <img src="/images/moritz.png" alt="Moritz Büsing">
+                    </div>
+                    <h3>Moritz Büsing</h3>
+                    <p class="position">Senior Power Train Engineer</p>
+                    <p class="bio">Airframe Technology Specialist with deep expertise in rotor development, propeller analysis, and cooling systems design for eVTOL aircraft. Holds 14 patents in advanced rotorcraft technology.</p>
+                    <div class="social-links">
+                        <a href="#" class="social-icon">in</a>
+                        <a href="#" class="social-icon">🐦</a>
+                    </div>
+                </div>
+                <div class="team-member">
+                    <div class="member-image">
+                        <img src="/images/gilho.png" alt="Lee Gil Ho">
+                    </div>
+                    <h3>Lee Gil Ho</h3>
+                    <p class="position">Head of Flight Control & Automation</p>
+                    <p class="bio">12+ years in UAV flight control system development with expertise in embedded systems and autonomous flight technologies. Led swarm flight operations and UAM aircraft control systems at PabloAir and PLANA.</p>
+                    <div class="social-links">
+                        <a href="#" class="social-icon">in</a>
+                        <a href="#" class="social-icon">🐦</a>
+                    </div>
+                </div>
+                <div class="team-member">
+                    <div class="member-image">
+                        <img src="/images/arun.png" alt="Arun Subramanian">
+                    </div>
+                    <h3>Arun Subramanian</h3>
+                    <p class="position">Chief Aerodynamics Officer</p>
+                    <p class="bio">Ph.D. in Aeronautical Engineering with expertise in aircraft propulsion, CFD analysis, and heat exchanger design for hybrid electric aircraft. Former researcher at PSRC and Design Tech Centre.</p>
+                    <div class="social-links">
+                        <a href="#" class="social-icon">in</a>
+                        <a href="#" class="social-icon">🐦</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="section-subtitle">
+                <h2>Advisors & Consultants</h2>
+                <p>Industry experts guiding our vision and strategic direction</p>
+            </div>
+            <div class="advisors-grid">
+                <div class="advisor">
+                    <div class="advisor-image">
+                        <img src="/images/advisor-akira.png" alt="Prof. Akira Yamamoto">
+                    </div>
+                    <div class="advisor-info">
+                        <h3>Prof. Akira Yamamoto</h3>
+                        <p class="position">Technical Advisor, Aerospace Engineering</p>
+                        <p class="bio">Leading authority on ground effect aerodynamics at Tokyo Institute of Technology. Author of 40+ research papers on advanced aerial vehicle design.</p>
+                    </div>
+                </div>
+                <div class="advisor">
+                    <div class="advisor-image">
+                        <img src="/images/advisor-jennifer.png" alt="Dr. Jennifer Walsh">
+                    </div>
+                    <div class="advisor-info">
+                        <h3>Dr. Jennifer Walsh</h3>
+                        <p class="position">Regulatory Affairs Consultant</p>
+                        <p class="bio">Former FAA Director of Unmanned Systems Integration with expertise in SC-VTOL compliance. Specializes in navigating certification processes for novel aircraft.</p>
+                    </div>
+                </div>
+                <div class="advisor">
+                    <div class="advisor-image">
+                        <img src="/images/advisor-franck.png" alt="Franck Doyen">
+                    </div>
+                    <div class="advisor-info">
+                        <h3>Franck Doyen</h3>
+                        <p class="position">Manufacturing Consultant</p>
+                        <p class="bio">CEO of Design Tech Centre with extensive experience in Formula 1 racing and aviation engineering. Expert in hybrid electric aircraft design and implementation.</p>
+                    </div>
+                </div>
+                <div class="advisor">
+                    <div class="advisor-image">
+                        <img src="/images/advisor-taekyu.png" alt="Dr. Taekyu Ryu">
+                    </div>
+                    <div class="advisor-info">
+                        <h3>Dr. Taekyu Ryu</h3>
+                        <p class="position">eVTOL Systems Integration Advisor</p>
+                        <p class="bio">Chief Engineer and VP at PLANA, specializing in hybrid-electric VTOL aircraft and advanced air mobility solutions for urban environments.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact" id="contact">
+        <div class="container">
+            <div class="contact-container">
+                <div class="contact-info">
+                    <h2>Get In Touch</h2>
+                    <p>Interested in revolutionizing your logistics operations? Contact our team to discuss how Pangea can transform your cargo transportation needs.</p>
+                    <ul class="contact-details">
+                        <li>
+                            <span class="icon">📍</span>
+                            <span>123 Innovation Park, Seattle, WA 98101</span>
+                        </li>
+                        <li>
+                            <span class="icon">📱</span>
+                            <span>+1 (206) 555-0123</span>
+                        </li>
+                        <li>
+                            <span class="icon">✉️</span>
+                            <span>info@pangeacraft.com</span>
+                        </li>
+                        <li>
+                            <span class="icon">🕒</span>
+                            <span>Monday - Friday: 9:00 AM - 6:00 PM</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="contact-form">
+                    <!-- Zoho Forms Implementation -->
+                    <!-- Replace YOUR_FORM_LINK with your actual Zoho Forms link -->
+                    <form id="zoho-contact-form" action="https://forms.zohopublic.com/YOUR_FORM_LINK" method="POST" name="Pangea Contact Form">
+                        <div class="form-group">
+                            <label for="name">Name</label>
+                            <input type="text" id="name" name="Name" placeholder="Your name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" name="Email" placeholder="Your email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="subject">Subject</label>
+                            <input type="text" id="subject" name="Subject" placeholder="Subject" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Message</label>
+                            <textarea id="message" name="Message" placeholder="Your message" required></textarea>
+                        </div>
+                        <!-- Zoho Forms hidden input elements -->
+                        <input type="hidden" name="zf_referrer_name" value="">
+                        <input type="hidden" name="zf_redirect_url" value="https://pangeacraft.com/thankyou.html">
+                        <input type="hidden" name="zc_gad" value="">
+                        <button type="submit" class="form-button">Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-container">
+                <div class="footer-about">
+                    <a href="#" class="footer-logo">
+                        <img src="/images/logo.png" alt="Pangea Logo" height="30">
+                        <span class="footer-logo-text">PANGEA</span>
+                    </a>
+                    <p>Pioneering the future of logistics with ground effect technology that makes cargo transportation more efficient, affordable, and environmentally sustainable.</p>
+                </div>
+                <div class="footer-links-container">
+                    <h3 class="footer-heading">Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#features">Features</a></li>
+                        <li><a href="#specs">Specifications</a></li>
+                        <li><a href="#history">History</a></li>
+                        <li><a href="#team">Team</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links-container">
+                    <h3 class="footer-heading">Resources</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Press Kit</a></li>
+                        <li><a href="#">Case Studies</a></li>
+                        <li><a href="#">White Papers</a></li>
+                        <li><a href="#">FAQs</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links-container">
+                    <h3 class="footer-heading">Legal</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#">Cookie Policy</a></li>
+                        <li><a href="#">Compliance</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                &copy; 2025 Pangea Technologies. All Rights Reserved.
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript for animations and interactions -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Animate banner elements using anime.js
+            anime({
+                targets: '.slogan-overlay',
+                opacity: [0, 1],
+                duration: 2000,
+                easing: 'easeInQuad'
+            });
+            
+            anime({
+                targets: '.logo-overlay',
+                opacity: [0, 1],
+                duration: 2000,
+                easing: 'easeInQuad'
+            });
+            
+            // Timeline aircraft animation
+            const timelineSection = document.getElementById('history');
+            const timelineItems = document.querySelectorAll('.timeline-item');
+            const aircraft = document.getElementById('timeline-aircraft');
+            let activeIndex = -1;
+            let isScrolling = false;
+            let scrollTimeout;
+            
+            // Calculate positions and check which milestone is in view
+            function updateAircraftPosition() {
+                if (!isElementInViewport(timelineSection)) {
+                    aircraft.style.opacity = '0';
+                    return;
+                }
+                
+                let newActiveIndex = -1;
+                const viewportMiddle = window.innerHeight / 2;
+                
+                timelineItems.forEach((item, index) => {
+                    const rect = item.getBoundingClientRect();
+                    const itemMiddle = rect.top + rect.height / 2;
+                    const distanceFromMiddle = Math.abs(itemMiddle - viewportMiddle);
+                    
+                    // Find the item closest to the middle of the viewport
+                    if (rect.top < window.innerHeight && rect.bottom > 0) {
+                        if (newActiveIndex === -1 || distanceFromMiddle < Math.abs(timelineItems[newActiveIndex].getBoundingClientRect().top + timelineItems[newActiveIndex].getBoundingClientRect().height / 2 - viewportMiddle)) {
+                            newActiveIndex = index;
+                        }
+                    }
+                });
+                
+                if (newActiveIndex !== activeIndex) {
+                    activeIndex = newActiveIndex;
+                    updateActiveItem();
+                }
+                
+                if (activeIndex !== -1) {
+                    const activeItem = timelineItems[activeIndex];
+                    const activePoint = activeItem.querySelector('.timeline-active-point');
+                    const pointRect = activePoint.getBoundingClientRect();
+                    
+                    // Position the aircraft at the active point
+                    aircraft.style.top = `${pointRect.top}px`;
+                    aircraft.style.opacity = '1';
+                    
+                    // Add animation classes based on direction
+                    if (isScrolling) {
+                        aircraft.style.transform = 'translateX(-50%) rotate(0deg)';
+                    }
+                }
+            }
+            
+            function updateActiveItem() {
+                // Remove active class from all items
+                timelineItems.forEach(item => {
+                    item.classList.remove('active');
+                });
+                
+                // Add active class to current item
+                if (activeIndex !== -1) {
+                    timelineItems[activeIndex].classList.add('active');
+                }
+            }
+            
+            function isElementInViewport(el) {
+                const rect = el.getBoundingClientRect();
+                return (
+                    rect.top < window.innerHeight &&
+                    rect.bottom > 0
+                );
+            }
+            
+            // Listen for scroll events
+            window.addEventListener('scroll', function() {
+                // Set scrolling flag and clear any existing timeout
+                isScrolling = true;
+                clearTimeout(scrollTimeout);
+                
+                // Update position immediately
+                updateAircraftPosition();
+                
+                // Set a timeout to detect when scrolling stops
+                scrollTimeout = setTimeout(function() {
+                    isScrolling = false;
+                }, 100);
+            });
+            
+            // Initial position update
+            updateAircraftPosition();
+            
+            // Update on window resize
+            window.addEventListener('resize', updateAircraftPosition);
+        });
+    </script>
+</body>
+</html>
