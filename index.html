@@ -145,20 +145,24 @@
 }
 
 .video-background {
-    z-index: 1;
-    overflow: hidden;
+    position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
     height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    overflow: hidden;
 }
 
 .video-background video {
-    width: 100%; /* Fill the width */
-    height: auto; /* Maintain aspect ratio */
     min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
     position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    object-fit: cover;
 }
 
 .content-container {
@@ -1002,15 +1006,14 @@
 
     <!-- Banner Section -->
     <section class="banner">
-        <div class="ad-container" id="mainAdContainer">
-            <div class="video-background layer">
-                <video autoplay muted loop>
-                    <source src="images/intro2.mp4" type="video/mp4">
-                    Your browser does not support the video tag.
-                </video>
-            </div>
-
-        </div>
+<div class="ad-container" id="mainAdContainer">
+    <div class="video-background layer">
+        <video autoplay muted loop playsinline>
+            <source src="images/intro2.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+    </div>
+</div>
     </section>
 
     <!-- Hero Section -->
@@ -1093,15 +1096,15 @@
                 </div>
                 <div class="specs-content">
                     <h2>Technical Specifications</h2>
-                    <p>The Pangea GE-200 combines cutting-edge aerodynamics with robust engineering to deliver unprecedented cargo transportation efficiency.</p>
+                    <p>The Pangea STORM combines cutting-edge aerodynamics with robust engineering to deliver unprecedented cargo transportation efficiency.</p>
                     <ul class="specs-list">
     <li>
         <span class="spec-title">Dimensions:</span>
-        <span class="spec-value">15m length × 12m wingspan × 3.5m height</span>
+        <span class="spec-value"> 12m wingspan </span>
     </li>
     <li>
         <span class="spec-title">Max Payload:</span>
-        <span class="spec-value">2,000 kg</span>
+        <span class="spec-value">600 kg</span>
     </li>
     <li>
         <span class="spec-title">Range:</span>
@@ -1109,7 +1112,7 @@
     </li>
     <li>
         <span class="spec-title">Power System:</span>
-        <span class="spec-value">Hybrid electric-combustion with 180 kW output</span>
+        <span class="spec-value">Hybrid electric-combustion with 200 kW output</span>
     </li>
     <li>
         <span class="spec-title">Cruise Speed:</span>
@@ -1121,7 +1124,7 @@
     </li>
     <li>
         <span class="spec-title">Security:</span>
-        <span class="spec-value">End-to-end encryption, redundant communication systems</span>
+        <span class="spec-value">AI enabled object detection, redundant communication systems</span>
     </li>
 </ul>
                 </div>
