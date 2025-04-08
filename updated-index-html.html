@@ -1,4 +1,86 @@
-<!DOCTYPE html>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Create minimal bubbles (fewer, more subtle)
+            const banner = document.getElementById('banner');
+            
+            // Create only 15 bubbles for minimalist look
+            for (let i = 0; i < 15; i++) {
+                const bubble = document.createElement('div');
+                bubble.className = 'bubble';
+                
+                // Smaller bubbles for minimalist aesthetic
+                const size = Math.random() * 3 + 2;
+                bubble.style.width = size + 'px';
+                bubble.style.height = size + 'px';
+                
+                // Random horizontal position
+                bubble.style.left = (Math.random() * 100) + '%';
+                
+                // Random start position from the bottom
+                bubble.style.bottom = (Math.random() * 10 - 10) + '%';
+                
+                // Slower animation for subtle effect
+                const duration = 15 + Math.random() * 15;
+                bubble.style.animationDuration = duration + 's';
+                
+                // Random animation delay
+                bubble.style.animationDelay = (Math.random() * 5) + 's';
+                
+                // Less horizontal movement
+                const tx = (Math.random() * 30 - 15);
+                bubble.style.setProperty('--tx', tx + 'px');
+                
+                banner.appendChild(bubble);
+            }
+            
+            // Timeline aircraft animation (keeping this intact from your original code)
+            const timelineSection = document.getElementById('history');
+            const timelineItems = document.querySelectorAll('.timeline-item');
+            const aircraft = document.getElementById('timeline-aircraft');
+            let activeIndex = -1;
+            let isScrolling = false;
+            let scrollTimeout;
+            
+            // Calculate positions and check which milestone is in view
+            function updateAircraftPosition() {
+                if (!timelineSection || !aircraft || !isElementInViewport(timelineSection)) {
+                    if (aircraft) aircraft.style.opacity = '0';
+                    return;
+                }
+                
+                let newActiveIndex = -1;
+                const viewportMiddle = window.innerHeight / 2;
+                
+                timelineItems.forEach((item, index) => {
+                    const rect = item.getBoundingClientRect();
+                    const itemMiddle = rect.top + rect.height / 2;
+                    const distanceFromMiddle = Math.abs(itemMiddle - viewportMiddle);
+                    
+                    // Find the item closest to the middle of the viewport
+                    if (rect.top < window.innerHeight && rect.bottom > 0) {
+                        if (newActiveIndex === -1 || distanceFromMiddle < Math.abs(timelineItems[newActiveIndex].getBoundingClientRect().top + timelineItems[newActiveIndex].getBoundingClientRect().height / 2 - viewportMiddle)) {
+                            newActiveIndex = index;
+                        }
+                    }
+                });
+                
+                if (newActiveIndex !== activeIndex) {
+                    activeIndex = newActiveIndex;
+                    updateActiveItem();
+                }
+                
+                if (activeIndex !== -1) {
+                    const activeItem = timelineItems[activeIndex];
+                    const activePoint = activeItem.querySelector('.timeline-active-point');
+                    if (activePoint) {
+                        const pointRect = activePoint.getBoundingClientRect();
+                        
+                        // Position the aircraft at the active point
+                        aircraft.style.top = `${pointRect.top}px`;
+                        aircraft.style.opacity = '1';
+                        
+                        // Add animation classes based on direction
+                        if (isScrolling<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -7,7 +89,7 @@
     <!-- Pretendard font (same as airbility.co.kr) -->
     <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css" />
     <!-- Anime.js for animations -->
-    <script src="anime.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
     <style>
         :root {
             --primary-color: #000000;
@@ -46,6 +128,7 @@
             width: 100%;
             top: 0;
             z-index: 100;
+            
             padding: 15px 0;
         }
 
@@ -115,16 +198,29 @@
             background-color: var(--secondary-color);
         }
 
-        /* Banner Section - Minimalistic Wave Animation */
+        /* Banner Section - Modern Design with Clear Water Animation */
         .banner {
             position: relative;
             width: 100%;
             height: 700px;
             margin: 80px 0 0;
             overflow: hidden;
+            background: #0055a4; /* Deeper blue for a more modern look */
         }
         
-        /* Minimalist wave background */
+        /* Water waves with animations - more subtle for modern look */
+        .water-waves {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            left: 0;
+            top: 0;
+            z-index: 1;
+            background: linear-gradient(180deg, rgba(0, 85, 164, 1) 0%, rgba(0, 65, 130, 1) 100%);
+            overflow: hidden;
+        }
+        
+        /* Minimalistic modern wave animation */
         .water-waves {
             position: absolute;
             width: 100%;
@@ -192,6 +288,16 @@
             left: 20%;
         }
         
+        @keyframes smallWave1 {
+            0% { transform: translateX(-100%) }
+            100% { transform: translateX(100%) }
+        }
+        
+        @keyframes smallWave2 {
+            0% { transform: translateX(100%) }
+            100% { transform: translateX(-100%) }
+        }
+        
         /* Minimalist bubble style */
         .bubble {
             position: absolute;
@@ -218,7 +324,7 @@
             }
         }
         
-        /* Text container with banner content */
+        /* Text container with improved contrast */
         .banner-text-container {
             position: relative;
             width: 100%;
@@ -232,7 +338,7 @@
         
         /* Logo styling - 3x bigger */
         .pangea-logo {
-            width: 240px;
+            width: 240px; /* Increased from 80px to 240px (3x) */
             margin-bottom: 30px;
             opacity: 0;
             transform: translateY(30px);
@@ -244,6 +350,7 @@
             height: auto;
         }
         
+        /* Modern typography for PANGEA */
         .pangea-text {
             font-size: 120px;
             font-weight: 200; /* Lighter weight for more modern look */
@@ -281,7 +388,7 @@
             }
         }
         
-        /* Minimal line */
+        /* Minimal line - thinner and shorter */
         .pangea-line {
             height: 1px; /* Thinner line for modern look */
             width: 0;
@@ -312,7 +419,7 @@
 
         /* Hero Section */
         .hero {
-            background: white;
+            background: white; /* Changed from gradient to white */
             padding: 150px 0 150px;
             text-align: center;
             width: 100%;
@@ -345,79 +452,17 @@
         }
 
         .hero-image {
-            width: 100vw;
+            width: 100vw; /* Full viewport width */
             margin-left: 50%;
-            transform: translateX(-50%);
+            transform: translateX(-50%); /* Center the image */
             overflow: hidden;
-            box-shadow: none;
+            box-shadow: none; /* Remove shadow */
         }
 
         .hero-image img {
             width: 100%;
             display: block;
-            filter: grayscale(0);
-        }
-
-        /* Use Cases Section */
-        .use-cases {
-            padding: 80px 0;
-            background-color: var(--light-gray);
-        }
-
-        .use-cases-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            grid-template-rows: repeat(2, 1fr);
-            gap: 30px;
-            margin-top: 50px;
-        }
-
-        .use-case-item {
-            position: relative;
-            overflow: hidden;
-            border-radius: 0;
-            height: 300px;
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
-
-        .use-case-item:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
-        }
-
-        .use-case-image {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.5s;
-        }
-
-        .use-case-item:hover .use-case-image {
-            transform: scale(1.05);
-        }
-
-        .use-case-overlay {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            padding: 20px;
-            background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
-            color: white;
-            text-align: left;
-        }
-
-        .use-case-overlay h3 {
-            font-size: 22px;
-            margin-bottom: 5px;
-            font-weight: 600;
-            letter-spacing: -0.03em;
-        }
-
-        .use-case-overlay p {
-            font-size: 14px;
-            opacity: 0.9;
-            letter-spacing: -0.02em;
+            filter: grayscale(0); /* Remove grayscale filter */
         }
 
         /* Features Section */
@@ -429,7 +474,7 @@
         .section-title {
             text-align: center;
             margin-bottom: 60px;
-            color: white;
+	    color: white;
         }
 
         .section-title h2 {
@@ -562,8 +607,8 @@
 
         .spec-title {
             font-weight: 600;
-            width: 180px;
-            min-width: 180px;
+            width: 180px; /* Fixed width for all titles */
+            min-width: 180px; /* Ensures the width is maintained */
             padding-right: 10px;
         }
 
@@ -628,11 +673,21 @@
             opacity: 0;
         }
         
+        /* Aircraft icon style options */
+        .aircraft-emoji {
+            font-size: 24px;
+        }
+        
         .aircraft-svg {
             width: 24px;
             height: 24px;
             stroke: var(--primary-color);
             fill: none;
+        }
+        
+        .custom-aircraft {
+            width: 24px;
+            height: 24px;
         }
         
         .timeline-active-point {
@@ -1079,8 +1134,8 @@
                 grid-template-columns: 1fr;
             }
             
-            .use-cases-grid {
-                grid-template-columns: repeat(2, 1fr);
+            .pangea-text {
+                font-size: 120px;
             }
         }
 
@@ -1094,12 +1149,17 @@
             }
             
             .banner {
-                height: 500px;
+                height: 400px;
                 margin-top: 70px;
             }
             
             .pangea-text {
                 font-size: 72px;
+                letter-spacing: 10px;
+            }
+            
+            .pangea-subtitle {
+                font-size: 18px;
             }
             
             .features-grid {
@@ -1137,10 +1197,6 @@
             .timeline-item:nth-child(even) .timeline-date {
                 transform: translateX(0);
             }
-            
-            .use-cases-grid {
-                grid-template-columns: 1fr;
-            }
         }
     </style>
 </head>
@@ -1154,18 +1210,18 @@
                     <span class="logo-text">PANGEA</span>
                 </a>
                 <ul class="nav-links">
-                    <li><a href="#use-cases">Use Cases</a></li>
                     <li><a href="#features">Features</a></li>
                     <li><a href="#specs">Specifications</a></li>
                     <li><a href="#history">History</a></li>
                     <li><a href="#team">Team</a></li>
                     <li><a href="#contact">Contact</a></li>
+                    
                 </ul>
             </nav>
         </div>
     </header>
 
-    <!-- Banner Section with Minimalist Waves -->
+    <!-- Banner Section with Minimalist Modern Waves -->
     <section class="banner" id="banner">
         <div class="water-waves">
             <!-- Minimalist geometric accents -->
@@ -1209,412 +1265,10 @@
     <section class="hero">
         <div class="container">
             <div class="hero-content">
+
             </div>
             <div class="hero-image">
                 <img src="images/AC_121.png" alt="Pangea Ground Effect Cargo Drone">
             </div>
         </div>
     </section>
-
-    <!-- Use Cases Section -->
-    <section class="use-cases" id="use-cases">
-        <div class="container">
-            <div class="section-title">
-                <h2>Use Cases</h2>
-                <p>Discover how our ground effect cargo drones can transform various industries</p>
-            </div>
-            <div class="use-cases-grid">
-                <div class="use-case-item">
-                    <img src="images/7.png" alt="Underwater Exploration" class="use-case-image">
-                    <div class="use-case-overlay">
-                        <h3>Underwater Exploration</h3>
-                        <p>Deploying sensors and monitoring equipment for marine research and surveillance</p>
-                    </div>
-                </div>
-                <div class="use-case-item">
-                    <img src="images/9.png" alt="Coastal Travel & Cargo" class="use-case-image">
-                    <div class="use-case-overlay">
-                        <h3>Coastal Travel & Cargo</h3>
-                        <p>Efficient transportation networks connecting coastal cities and island communities</p>
-                    </div>
-                </div>
-                <div class="use-case-item">
-                    <img src="images/1.png" alt="Dedicated Lanes" class="use-case-image">
-                    <div class="use-case-overlay">
-                        <h3>Dedicated Lanes</h3>
-                        <p>Established routes with navigational markers for safe and efficient operations</p>
-                    </div>
-                </div>
-                <div class="use-case-item">
-                    <img src="images/2.png" alt="Anti-Piracy" class="use-case-image">
-                    <div class="use-case-overlay">
-                        <h3>Anti-Piracy</h3>
-                        <p>Surveillance and monitoring to protect shipping lanes from maritime threats</p>
-                    </div>
-                </div>
-                <div class="use-case-item">
-                    <img src="images/3.png" alt="Search & Rescue" class="use-case-image">
-                    <div class="use-case-overlay">
-                        <h3>Search & Rescue</h3>
-                        <p>Fast deployment to disaster areas for emergency response and survivor location</p>
-                    </div>
-                </div>
-                <div class="use-case-item">
-                    <img src="images/5.png" alt="Off-shore Resupply" class="use-case-image">
-                    <div class="use-case-overlay">
-                        <h3>Off-shore Resupply</h3>
-                        <p>Regular delivery of supplies and equipment to oil rigs and marine installations</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    
-    <!-- Features Section -->
-    <section class="features" id="features">
-        <div class="container">
-            <div class="section-title">
-                <h2>Revolutionary Capabilities</h2>
-                <p style="color: white;">Discover how our ground effect cargo drones transform logistics with enhanced efficiency and reduced costs</p>
-            </div>
-            <div class="features-grid">
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <img src="images/wind.svg" alt="Ground Effect Efficiency" class="svg-icon" width="100px">
-                    </div>
-                    <h3>Ground Effect Efficiency</h3>
-                    <p>Utilizing ground effect physics to achieve 40% greater fuel efficiency than traditional aircraft while flying just above water or flat terrain</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <img src="images/box.svg" alt="High Payload Capacity" class="svg-icon" width="100px">
-                    </div>
-                    <h3>High Payload Capacity</h3>
-                    <p>Carry up to 600kg of cargo efficiently over distances of 500+ km, ideal for medium-range logistics operations</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <img src="images/ai.svg" alt="Autonomous Navigation" class="svg-icon" width="100px">
-                    </div>
-                    <h3>Autonomous Navigation</h3>
-                    <p>Advanced AI systems enable fully autonomous operations with minimal human oversight for safe and reliable deliveries</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <img src="images/hybrid.svg" alt="Hybrid Propulsion" class="svg-icon" width="100px">
-                    </div>
-                    <h3>Hybrid Propulsion</h3>
-                    <p>Electric-combustion hybrid power system offers the perfect balance of efficiency, range, and environmental responsibility</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <img src="images/weather.svg" alt="All-Weather Operation" class="svg-icon" width="100px">
-                    </div>
-                    <h3>All-Weather Operation</h3>
-                    <p>Designed to operate in challenging weather conditions with stability systems that ensure reliable performance</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <img src="images/monitor.svg" alt="Real-time Monitoring" class="svg-icon" width="100px">
-                    </div>
-                    <h3>Real-time Monitoring</h3>
-                    <p>Comprehensive telemetry and cargo condition monitoring with satellite connectivity for global tracking</p>
-                </div>
-            </div>
-        </div>
-    </section>
-    
-    <!-- Specs Section -->
-    <section class="specs" id="specs">
-        <div class="container">
-            <div class="specs-container">
-                <div class="specs-image">
-                    <img src="images/ac22.png" alt="Pangea Technical Specifications">
-                </div>
-                <div class="specs-content">
-                    <h2>Technical Specifications</h2>
-                    <p>The Pangea STORM combines cutting-edge aerodynamics with robust engineering to deliver unprecedented cargo transportation efficiency.</p>
-                    <ul class="specs-list">
-                        <li>
-                            <span class="spec-title">Dimensions:</span>
-                            <span class="spec-value"> 12m wingspan</span>
-                        </li>
-                        <li>
-                            <span class="spec-title">Max Payload:</span>
-                            <span class="spec-value">600 kg</span>
-                        </li>
-                        <li>
-                            <span class="spec-title">Range:</span>
-                            <span class="spec-value">500 km (full payload), 800 km (reduced payload)</span>
-                        </li>
-                        <li>
-                            <span class="spec-title">Power System:</span>
-                            <span class="spec-value">Hybrid electric-combustion with 200 kW output</span>
-                        </li>
-                        <li>
-                            <span class="spec-title">Cruise Speed:</span>
-                            <span class="spec-value">200 km/h</span>
-                        </li>
-                        <li>
-                            <span class="spec-title">Operating Conditions:</span>
-                            <span class="spec-value">-20°C to +45°C, wind up to 25 knots</span>
-                        </li>
-                        <li>
-                            <span class="spec-title">Security:</span>
-                            <span class="spec-value">End-to-end encryption, redundant communication systems</span>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Team Section -->
-    <section class="team" id="team">
-        <div class="container">
-            <div class="section-title">
-                <h2 style="color: #000000;">Our Leadership Team</h2>
-                <p>Meet the experts behind Pangea's revolutionary ground effect cargo drone technology</p>
-            </div>
-            <div class="team-grid">
-                <div class="team-member">
-                    <div class="member-image">
-                        <img src="images/arun.png" alt="Arun Subramanian">
-                    </div>
-                    <h3>Arun Subramanian</h3>
-                    <p class="position">CEO & Head of Aerodynamics</p>
-                    <p class="bio">Ph.D. in Aeronautical Engineering with expertise in aircraft propulsion, CFD analysis, and heat exchanger design for hybrid electric aircraft. Former researcher at PSRC and Design Tech Centre.</p>
-                    <div class="social-links">
-                        <a href="#" class="social-icon">in</a>
-                        <a href="#" class="social-icon">🐦</a>
-                    </div>
-                </div>
-                
-                <div class="team-member">
-                    <div class="member-image">
-                        <img src="images/moritz.png" alt="Moritz Büsing">
-                    </div>
-                    <h3>Moritz Büsing</h3>
-                    <p class="position">CPO & Head of Structures</p>
-                    <p class="bio">Airframe Technology Specialist with deep expertise in rotor development, propeller analysis, and cooling systems design for eVTOL aircraft. Holds 14 patents in advanced rotorcraft technology.</p>
-                    <div class="social-links">
-                        <a href="#" class="social-icon">in</a>
-                        <a href="#" class="social-icon">🐦</a>
-                    </div>
-                </div>
-                <div class="team-member">
-                    <div class="member-image">
-                        <img src="images/gilho.png" alt="Lee Gil Ho">
-                    </div>
-                    <h3>Lee Gil Ho</h3>
-                    <p class="position">Chief Technology Officer</p>
-                    <p class="bio">12+ years in UAV flight control system development with expertise in embedded systems and autonomous flight technologies. Led swarm flight operations and UAM aircraft control systems at PabloAir and PLANA.</p>
-                    <div class="social-links">
-                        <a href="#" class="social-icon">in</a>
-                        <a href="#" class="social-icon">🐦</a>
-                    </div>
-                </div>
-                <div class="team-member">
-                    <div class="member-image">
-                        <img src="images/anil.png" alt="Anıl Yılmaz">
-                    </div>
-                    <h3>Anıl Yılmaz</h3>
-                    <p class="position">Head of Flight Control software </p>
-                    <p class="bio">Control and automation specialist with extensive experience developing flight control laws for VTOL and fixed-wing UAVs. Ph.D. candidate in Control and Automation Engineering from ITU.</p>
-                    <div class="social-links">
-                        <a href="#" class="social-icon">in</a>
-                        <a href="#" class="social-icon">🐦</a>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="section-subtitle">
-                <h2>Advisors & Consultants</h2>
-                <p>Industry experts guiding our vision and strategic direction</p>
-            </div>
-            <div class="advisor">
-                <div class="advisor-image">
-                    <img src="images/advisor-arun.png" alt="Dr. Arun Krishnan">
-                </div>
-                <div class="advisor-info">
-                    <h3>Dr. Arun Krishnan</h3>
-                    <p class="position">Senior consultant - Hydrodynamics and hull design</p>
-                    <p class="bio">Seasoned research engineer with more than 15 years of experience in high advanced ship hull design. Currently based in Finland</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer>
-        <div class="container">
-            <div class="footer-container">
-                <div class="footer-about">
-                    <a href="#" class="footer-logo">
-                        <img src="images/logo.png" alt="Pangea Logo" height="200">
-                        <span class="footer-logo-text">PANGEA</span>
-                    </a>
-                    <p>Pioneering the future of logistics with ground effect technology that makes cargo transportation more efficient, affordable, and environmentally sustainable.</p>
-                </div>
-                <div class="footer-links-container">
-                    <h3 class="footer-heading">Quick Links</h3>
-                    <ul class="footer-links">
-                        <li><a href="#">Home</a></li>
-                        <li><a href="#use-cases">Use Cases</a></li>
-                        <li><a href="#features">Features</a></li>
-                        <li><a href="#specs">Specifications</a></li>
-                        <li><a href="#history">History</a></li>
-                        <li><a href="#team">Team</a></li>
-                        <li><a href="#contact">Contact</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="copyright">
-                &copy; 2025 Pangea Technologies. All Rights Reserved.
-            </div>
-        </div>
-    </footer>
-
-    <!-- JavaScript for animations and interactions -->
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Create minimal bubbles (fewer, more subtle)
-            const banner = document.getElementById('banner');
-            
-            // Create only 15 bubbles for minimalist look
-            for (let i = 0; i < 15; i++) {
-                const bubble = document.createElement('div');
-                bubble.className = 'bubble';
-                
-                // Smaller bubbles for minimalist aesthetic
-                const size = Math.random() * 3 + 2;
-                bubble.style.width = size + 'px';
-                bubble.style.height = size + 'px';
-                
-                // Random horizontal position
-                bubble.style.left = (Math.random() * 100) + '%';
-                
-                // Random start position from the bottom
-                bubble.style.bottom = (Math.random() * 10 - 10) + '%';
-                
-                // Slower animation for subtle effect
-                const duration = 15 + Math.random() * 15;
-                bubble.style.animationDuration = duration + 's';
-                
-                // Random animation delay
-                bubble.style.animationDelay = (Math.random() * 5) + 's';
-                
-                // Less horizontal movement
-                const tx = (Math.random() * 30 - 15);
-                bubble.style.setProperty('--tx', tx + 'px');
-                
-                banner.appendChild(bubble);
-            }
-            
-            // Timeline aircraft animation
-            const timelineSection = document.getElementById('history');
-            const timelineItems = document.querySelectorAll('.timeline-item');
-            const aircraft = document.getElementById('timeline-aircraft');
-            let activeIndex = -1;
-            let isScrolling = false;
-            let scrollTimeout;
-            
-            // Calculate positions and check which milestone is in view
-            function updateAircraftPosition() {
-                if (!timelineSection || !aircraft || !isElementInViewport(timelineSection)) {
-                    if (aircraft) aircraft.style.opacity = '0';
-                    return;
-                }
-                
-                let newActiveIndex = -1;
-                const viewportMiddle = window.innerHeight / 2;
-                
-                timelineItems.forEach((item, index) => {
-                    const rect = item.getBoundingClientRect();
-                    const itemMiddle = rect.top + rect.height / 2;
-                    const distanceFromMiddle = Math.abs(itemMiddle - viewportMiddle);
-                    
-                    // Find the item closest to the middle of the viewport
-                    if (rect.top < window.innerHeight && rect.bottom > 0) {
-                        if (newActiveIndex === -1 || distanceFromMiddle < Math.abs(timelineItems[newActiveIndex].getBoundingClientRect().top + timelineItems[newActiveIndex].getBoundingClientRect().height / 2 - viewportMiddle)) {
-                            newActiveIndex = index;
-                        }
-                    }
-                });
-                
-                if (newActiveIndex !== activeIndex) {
-                    activeIndex = newActiveIndex;
-                    updateActiveItem();
-                }
-                
-                if (activeIndex !== -1) {
-                    const activeItem = timelineItems[activeIndex];
-                    const activePoint = activeItem.querySelector('.timeline-active-point');
-                    if (activePoint) {
-                        const pointRect = activePoint.getBoundingClientRect();
-                        
-                        // Position the aircraft at the active point
-                        aircraft.style.top = `${pointRect.top}px`;
-                        aircraft.style.opacity = '1';
-                        
-                        // Add animation classes based on direction
-                        if (isScrolling) {
-                            aircraft.style.transform = 'translateX(-50%) rotate(0deg)';
-                        }
-                    }
-                }
-            }
-            
-            function updateActiveItem() {
-                // Remove active class from all items
-                timelineItems.forEach(item => {
-                    item.classList.remove('active');
-                });
-                
-                // Add active class to current item
-                if (activeIndex !== -1) {
-                    timelineItems[activeIndex].classList.add('active');
-                }
-            }
-            
-            function isElementInViewport(el) {
-                if (!el) return false;
-                const rect = el.getBoundingClientRect();
-                return (
-                    rect.top < window.innerHeight &&
-                    rect.bottom > 0
-                );
-            }
-            
-            // Listen for scroll events
-            window.addEventListener('scroll', function() {
-                // Set scrolling flag and clear any existing timeout
-                isScrolling = true;
-                clearTimeout(scrollTimeout);
-                
-                // Update position immediately
-                updateAircraftPosition();
-                
-                // Set a timeout to detect when scrolling stops
-                scrollTimeout = setTimeout(function() {
-                    isScrolling = false;
-                }, 100);
-            });
-            
-            // Initial position update
-            updateAircraftPosition();
-            
-            // Update on window resize
-            window.addEventListener('resize', updateAircraftPosition);
-        });
-    </script>
-</body>
-</html>
-                        <input type="hidden" name="zc_gad" value="">
-                        <button type="submit" class="form-button">Send Message</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </section>-container">
-                <div class="specs
