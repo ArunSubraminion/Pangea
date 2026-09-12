@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Company — About &amp; Contact | Pangea</title>
+<meta name="description" content="Pangea is a focused programme building the U-MAV ground-effect aircraft for defence and cargo, engineered by an international team based in the UAE. Contact us." />
+<meta name="theme-color" content="#04070c" />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath d='M16 3 L30 28 L16 21 L2 28 Z' fill='%23ff6a1a'/%3E%3C/svg%3E" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@500;600;700;800;900&family=Hanken+Grotesk:wght@400;500;600;700;800&family=Spline+Sans+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+<div class="atmosphere" aria-hidden="true"></div>
+<div class="grain" aria-hidden="true"></div>
+
+<header class="nav" id="nav">
+  <div class="wrap">
+    <a class="brand" href="index.html" aria-label="Pangea home">
+      <svg class="brand__mark" viewBox="0 0 32 32" aria-hidden="true"><path d="M16 3 L30 28 L16 21 L2 28 Z" fill="currentColor"/><path d="M16 3 L16 21" stroke="#04070c" stroke-width="1.2"/></svg>
+      <span class="brand__type"><span class="brand__name">Pangea</span><span class="brand__sub">Ground · Effect · Defense</span></span>
+    </a>
+    <nav class="nav__links" id="navLinks" aria-label="Primary">
+      <a href="index.html">Home</a>
+      <a href="aircraft.html">The Aircraft</a>
+      <a href="company.html" class="is-active">Company</a>
+      <a class="btn btn--solid nav__cta" href="#contact">Contact us <span class="ar">→</span></a>
+    </nav>
+    <button class="nav__burger" id="burger" aria-label="Menu" aria-expanded="false"><span></span></button>
+  </div>
+</header>
+
+<main>
+<section class="page-hero">
+  <div class="wrap">
+    <p class="breadcrumb reveal"><a href="index.html">Pangea</a> / <span>Company</span></p>
+    <h1 class="display reveal d1">Small group.<br>High impact.</h1>
+    <p class="reveal d2">A focused programme building the U-MAV ground-effect aircraft — engineered by an international team based in the UAE, building a defensible advantage from first principles.</p>
+  </div>
+</section>
+
+<!-- POSITIONING -->
+<section class="section section--tight" id="positioning">
+  <div class="wrap">
+    <div class="split">
+      <div class="prose reveal">
+        <p>We are not alone in ground effect — but none of the others are focused on security.</p>
+        <p>Passenger and cargo programmes in the USA, Singapore, Turkey and China validate the physics of wing-in-ground flight. Pangea is the one programme tailored for stealth and the maritime fight: a 70&nbsp;kg payload, a sub-radar signature, a dynamic jump to defeat obstacles, and a faster path to deployment.</p>
+        <p>That focus — plus a small, senior, multi-disciplinary team — is how a startup out-manoeuvres incumbents.</p>
+      </div>
+      <div class="aside-card reveal d1">
+        <h4>Our edge</h4>
+        <ul>
+          <li><span>Tailored for</span><b>Stealth</b></li>
+          <li><span>Payload</span><b>70 kg</b></li>
+          <li><span>Reach</span><b>300+ km</b></li>
+          <li><span>Signature</span><b>Surface-masked</b></li>
+          <li><span>Obstacle defeat</span><b>Dynamic jump</b></li>
+          <li><span>Time to deploy</span><b>Faster</b></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VISION -->
+<section class="section vision" id="vision">
+  <div class="wrap">
+    <p class="kicker kicker--center reveal" style="justify-content:center; display:flex">The mission</p>
+    <blockquote class="vision__quote reveal d1" style="margin-top:26px">
+      <span class="vision__q">“</span>In the UAE, everyone is Emirati through their love for this land and their contributions to it.<span class="vision__q">”</span>
+    </blockquote>
+    <p class="vision__by reveal d2">We will emerge stronger · Pangea</p>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="section" id="contact">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <p class="kicker">Contact us</p>
+      <h2>Let's talk.</h2>
+      <p>For defence and cargo operators, partners and prospective collaborators. Tell us who you are and we'll get back to you.</p>
+    </div>
+    <div class="contact-grid">
+      <div class="contact-info reveal">
+        <div class="row"><div class="k">Email</div><div class="v"><a href="mailto:contact@pangeacraft.com">contact@pangeacraft.com</a></div></div>
+        <div class="row"><div class="k">Headquarters</div><div class="v">Abu Dhabi, United Arab Emirates</div></div>
+        <div class="row"><div class="k">Engineering</div><div class="v">International team, UAE</div></div>
+        <div class="row"><div class="k">For</div><div class="v">Defence · Cargo</div></div>
+      </div>
+      <form class="form reveal d1" id="briefForm" novalidate>
+        <div class="field"><label for="name">Name</label><input id="name" name="name" type="text" placeholder="Full name" required /></div>
+        <div class="field"><label for="org">Organisation</label><input id="org" name="org" type="text" placeholder="Ministry / company" required /></div>
+        <div class="field"><label for="email">Email</label><input id="email" name="email" type="email" placeholder="you@org.gov" required /></div>
+        <div class="field"><label for="interest">Interest</label>
+          <select id="interest" name="interest">
+            <option>Technical brief</option>
+            <option>CONOPS package</option>
+            <option>Evaluation / trial</option>
+            <option>Investment</option>
+            <option>Partnership</option>
+          </select>
+        </div>
+        <div class="field full"><label for="msg">Message</label><textarea id="msg" name="msg" placeholder="Tell us about your mission need…"></textarea></div>
+        <div class="field full" style="flex-direction:row; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:14px">
+          <button type="submit" class="btn btn--solid">Transmit request <span class="ar">→</span></button>
+          <span class="form-note">// Encrypted handling · we reply within 2 business days.</span>
+        </div>
+        <div class="form__sent" id="formSent">▸ TRANSMISSION RECEIVED — thank you. The Pangea team will respond shortly.</div>
+      </form>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer class="footer">
+  <div class="wrap">
+    <div class="footer__grid">
+      <div class="footer__brand">
+        <a class="brand" href="index.html">
+          <svg class="brand__mark" viewBox="0 0 32 32" aria-hidden="true"><path d="M16 3 L30 28 L16 21 L2 28 Z" fill="currentColor"/></svg>
+          <span class="brand__type"><span class="brand__name">Pangea</span><span class="brand__sub">Ground · Effect · Defense</span></span>
+        </a>
+        <p>The ultrafast marine autonomous vehicle. Aircraft speed, on-water basing, a sub-radar signature — one platform for maritime security.</p>
+      </div>
+      <div class="footer__col"><h5>Platform</h5><a href="aircraft.html#anatomy">Anatomy</a><a href="aircraft.html#configs">Avionics</a><a href="aircraft.html#signature">Signature</a><a href="index.html#why">Why a GEV</a></div>
+      <div class="footer__col"><h5>Capabilities</h5><a href="index.html#capabilities">Defence uses</a><a href="index.html#conops">CONOPS</a><a href="index.html#landscape">Landscape</a></div>
+      <div class="footer__col"><h5>Company</h5><a href="company.html">About</a><a href="company.html#vision">Vision</a><a href="company.html#contact">Contact</a></div>
+    </div>
+    <div class="footer__bar">
+      <p>© <span id="yr">2026</span> Pangea Aerospace Systems — All rights reserved.</p>
+      <p class="footer__coord">25.2048° N · 55.2708° E · ABU DHABI · UAE</p>
+    </div>
+  </div>
+</footer>
+
+<script src="main.js"></script>
+</body>
+</html>

@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>The U-MAV — Specification &amp; Avionics | Pangea</title>
+<meta name="description" content="The U-MAV: a 5.2m sea-skimming ground-effect aircraft. Full specification, mono-structure airframe, microjet propulsion, sub-radar signature and a three-tier avionics configuration matrix." />
+<meta name="theme-color" content="#04070c" />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath d='M16 3 L30 28 L16 21 L2 28 Z' fill='%23ff6a1a'/%3E%3C/svg%3E" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@500;600;700;800;900&family=Hanken+Grotesk:wght@400;500;600;700;800&family=Spline+Sans+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+<div class="atmosphere" aria-hidden="true"></div>
+<div class="grain" aria-hidden="true"></div>
+
+<header class="nav" id="nav">
+  <div class="wrap">
+    <a class="brand" href="index.html" aria-label="Pangea home">
+      <svg class="brand__mark" viewBox="0 0 32 32" aria-hidden="true"><path d="M16 3 L30 28 L16 21 L2 28 Z" fill="currentColor"/><path d="M16 3 L16 21" stroke="#04070c" stroke-width="1.2"/></svg>
+      <span class="brand__type"><span class="brand__name">Pangea</span><span class="brand__sub">Ground · Effect · Defense</span></span>
+    </a>
+    <nav class="nav__links" id="navLinks" aria-label="Primary">
+      <a href="index.html">Home</a>
+      <a href="aircraft.html" class="is-active">The Aircraft</a>
+      <a href="company.html">Company</a>
+      <a class="btn btn--solid nav__cta" href="company.html#contact">Contact us <span class="ar">→</span></a>
+    </nav>
+    <button class="nav__burger" id="burger" aria-label="Menu" aria-expanded="false"><span></span></button>
+  </div>
+</header>
+
+<main>
+<!-- PAGE HERO -->
+<section class="page-hero">
+  <div class="wrap">
+    <p class="breadcrumb reveal"><a href="index.html">Pangea</a> / <span>The Aircraft</span></p>
+    <h1 class="display reveal d1">The U-MAV.</h1>
+    <p class="reveal d2">A 5.2-metre mono-structure airframe with microjet propulsion and hydrofoils — purpose-built to take off from water, cruise in ground effect, and stay invisible to the sensors hunting it.</p>
+  </div>
+</section>
+
+<!-- ANATOMY -->
+<section class="section section--tight" id="anatomy">
+  <div class="wrap">
+    <div class="craft__stage reveal">
+      <svg viewBox="0 0 1000 380" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="U-MAV side profile with callouts" style="width:100%;height:auto">
+        <defs>
+          <linearGradient id="hullA" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#c6d3dd"/><stop offset="0.55" stop-color="#6f8294"/><stop offset="1" stop-color="#24333f"/></linearGradient>
+          <linearGradient id="spineA" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#ff6a1a"/><stop offset="1" stop-color="#ffb37a"/></linearGradient>
+        </defs>
+        <line x1="60" y1="190" x2="940" y2="190" stroke="#1c2c3a" stroke-width="1" stroke-dasharray="3 6"/>
+        <path d="M120 210 C 200 160 360 148 520 160 C 680 172 800 178 880 188 C 840 206 720 220 560 224 C 380 228 220 228 120 210 Z" fill="url(#hullA)" stroke="#dfe9f0" stroke-opacity="0.3"/>
+        <path d="M300 178 C 360 160 440 160 500 170 C 470 182 360 186 300 178 Z" fill="#0c1822" stroke="#3a4a59"/>
+        <path d="M560 160 L640 142 L700 148 L690 168 C 640 162 600 162 560 166 Z" fill="url(#spineA)"/>
+        <path d="M820 182 L880 120 L900 126 L880 186 Z" fill="url(#hullA)"/>
+        <path d="M150 216 C 170 240 210 254 250 250 C 230 234 210 224 190 218 Z" fill="#16242f"/>
+        <path d="M520 224 L540 260 L560 260 L552 224 Z" fill="#16242f"/>
+        <line x1="60" y1="262" x2="940" y2="262" stroke="#36e3c4" stroke-opacity="0.5" stroke-width="1.5"/>
+        <g font-family="Spline Sans Mono, monospace" font-size="11" fill="#93a6b6" letter-spacing="1">
+          <line x1="640" y1="142" x2="640" y2="74" stroke="#ff6a1a" stroke-width="1"/><circle cx="640" cy="74" r="2.5" fill="#ff6a1a"/><text x="650" y="70">DORSAL MICROJET · 240N×2 / 450N×1</text>
+          <line x1="400" y1="166" x2="400" y2="96" stroke="#283c4c" stroke-width="1"/><circle cx="400" cy="96" r="2.5" fill="#36e3c4"/><text x="410" y="92" fill="#cdd9e2">XL AVIONICS BAY · 50×50×160 cm</text>
+          <line x1="250" y1="250" x2="250" y2="316" stroke="#283c4c" stroke-width="1"/><circle cx="250" cy="316" r="2.5" fill="#36e3c4"/><text x="120" y="334" fill="#cdd9e2">HYDROFOILS · WATER TAKE-OFF / LANDING</text>
+          <line x1="700" y1="262" x2="760" y2="316" stroke="#283c4c" stroke-width="1"/><circle cx="760" cy="316" r="2.5" fill="#36e3c4"/><text x="700" y="334" fill="#93a6b6">SKIMS 30–50 cm OVER WATER</text>
+        </g>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<!-- RENDERS -->
+<section class="section section--tight" id="renders">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <p class="kicker">Renders</p>
+      <h2>The hardware.</h2>
+      <p>Design renders of the full-scale airframe — manta planform, dorsal microjets, anhedral wingtip floats and the XL avionics bay.</p>
+    </div>
+    <div class="plate plate--feature reveal d1">
+      <div class="plate__img">
+        <span class="plate__tick tl"></span><span class="plate__tick tr"></span><span class="plate__tick bl"></span><span class="plate__tick br"></span>
+        <img src="assets/umav-p11.png" alt="U-MAV in a three-quarter banking view showing the full airframe" loading="lazy" />
+      </div>
+      <div class="plate__cap"><span class="t">Three-quarter view — full airframe</span><span class="n">REN-01 · 5.2 m span</span></div>
+    </div>
+    <div class="render-gallery reveal d2" style="margin-top:16px">
+      <div class="plate"><div class="plate__img"><span class="plate__tick tl"></span><span class="plate__tick br"></span><img src="assets/umav-top.png" alt="U-MAV planform from above" loading="lazy" /></div><div class="plate__cap"><span class="t">Planform</span><span class="n">REN-02</span></div></div>
+      <div class="plate"><div class="plate__img"><span class="plate__tick tl"></span><span class="plate__tick br"></span><img src="assets/umav-front.png" alt="U-MAV front elevation showing the manta wing planform" loading="lazy" /></div><div class="plate__cap"><span class="t">Front elevation</span><span class="n">REN-03</span></div></div>
+      <div class="plate"><div class="plate__img"><span class="plate__tick tl"></span><span class="plate__tick br"></span><img src="assets/umav-engines.png" alt="U-MAV dorsal microjet engines highlighted in orange" loading="lazy" /></div><div class="plate__cap"><span class="t">Dorsal microjets</span><span class="n">REN-04</span></div></div>
+      <div class="plate"><div class="plate__img"><span class="plate__tick tl"></span><span class="plate__tick br"></span><img src="assets/umav-bay.png" alt="U-MAV fuselage pod with avionics bay open" loading="lazy" /></div><div class="plate__cap"><span class="t">XL avionics bay</span><span class="n">REN-05</span></div></div>
+      <div class="plate"><div class="plate__img"><span class="plate__tick tl"></span><span class="plate__tick br"></span><img src="assets/umav-rear.png" alt="U-MAV rear three-quarter view showing tail and wingtip floats" loading="lazy" /></div><div class="plate__cap"><span class="t">Tail &amp; tip floats</span><span class="n">REN-06</span></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- FULL SPEC -->
+<section class="section section--tight" id="spec">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <p class="kicker">Specification</p>
+      <h2>Numbers that fly.</h2>
+    </div>
+    <div class="specs reveal d1">
+      <div class="spec"><div class="k">Wingspan</div><div class="v">5.2<small>m</small></div></div>
+      <div class="spec"><div class="k">Length</div><div class="v">3.8<small>m</small></div></div>
+      <div class="spec"><div class="k">MTOW</div><div class="v">220<small>kg</small></div></div>
+      <div class="spec"><div class="k">Max speed</div><div class="v">250<small>km/h</small></div></div>
+      <div class="spec"><div class="k">Cruise speed</div><div class="v">200<small>km/h</small></div></div>
+    </div>
+    <div class="specs reveal d2" style="margin-top:16px">
+      <div class="spec"><div class="k">Useful payload</div><div class="v">60–80<small>kg</small></div></div>
+      <div class="spec"><div class="k">Range</div><div class="v">250–300<small>km</small></div></div>
+      <div class="spec"><div class="k">Endurance</div><div class="v">1.5–2<small>h</small></div></div>
+      <div class="spec"><div class="k">Payload bay</div><div class="v">50×50×160<small>cm</small></div></div>
+      <div class="spec"><div class="k">Cruise altitude</div><div class="v">30–50<small>cm</small></div></div>
+    </div>
+    <p class="matrix-note reveal d2">// Propulsion: microjet — UAE / Taiwan · 2 × 240 N or 1 × 450 N. Sea-state 2–3 capable. * indicative, prototype envelope.</p>
+  </div>
+</section>
+
+<!-- CHARACTERISTICS -->
+<section class="section" id="characteristics">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <p class="kicker">Characteristics</p>
+      <h2>Engineered for payload,<br>reach and silence.</h2>
+      <p>When fully loaded, the operational possibilities are many — and every design choice serves the mission.</p>
+    </div>
+    <div class="feat-grid">
+      <div class="feat reveal">
+        <svg class="feat__ico" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="6" y="14" width="36" height="22" rx="2"/><path d="M6 22h36M14 14v22"/></svg>
+        <h4>Large internal volume</h4><p>An XL avionics bay swallows mission systems other airframes can't carry — 50×50×160 cm of payload space.</p>
+      </div>
+      <div class="feat reveal d1">
+        <svg class="feat__ico" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M8 24h22l8-8v16l-8-8"/><circle cx="36" cy="24" r="3"/><path d="M8 18v12"/></svg>
+        <h4>Microjet engines</h4><p>Compact, high-thrust microjets (240 N × 2 or 450 N × 1) deliver high operational speed with a small acoustic and thermal footprint.</p>
+      </div>
+      <div class="feat reveal d2">
+        <svg class="feat__ico" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 30 C 18 18 30 18 42 30"/><path d="M6 30 C 18 24 30 24 42 30" opacity=".5"/><path d="M24 21v-7"/></svg>
+        <h4>Mono-structure wing</h4><p>A single integrated wing structure is easy to fabricate and assemble — fewer joints, lower cost, faster to build.</p>
+      </div>
+      <div class="feat reveal">
+        <svg class="feat__ico" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M24 6v36M24 6l-7 7M24 6l7 7"/><path d="M10 30h28"/></svg>
+        <h4>+ Payload / + range</h4><p>Ground effect and an efficient airframe trade brute thrust for endurance — more on station, farther out.</p>
+      </div>
+      <div class="feat reveal d1">
+        <svg class="feat__ico" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 32h40"/><path d="M8 32 C 20 8 30 8 40 24"/><circle cx="40" cy="24" r="2.5" fill="currentColor"/></svg>
+        <h4>High operational speed</h4><p>Cruise at 200 km/h, dash to 250 — covering 4–6× the patrol area of the fast boats it replaces.</p>
+      </div>
+      <div class="feat reveal d2">
+        <svg class="feat__ico" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="24" cy="24" r="18"/><circle cx="24" cy="24" r="10" opacity=".5"/><circle cx="24" cy="24" r="2.5" fill="currentColor"/><path d="M24 6v8M24 34v8M6 24h8M34 24h8"/></svg>
+        <h4>Low signature</h4><p>Surface-masked flight plus a small airframe keep radar, IR and acoustic returns near the noise floor.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SIGNATURE -->
+<section class="section" id="signature">
+  <div class="wrap">
+    <div class="radar__grid">
+      <div class="reveal">
+        <div class="scope">
+          <svg class="scope__svg" viewBox="0 0 200 200" aria-hidden="true">
+            <defs><radialGradient id="scopeg2" cx="0.5" cy="0.5" r="0.5"><stop offset="0" stop-color="#0a2730"/><stop offset="1" stop-color="#050c12"/></radialGradient></defs>
+            <circle cx="100" cy="100" r="98" fill="url(#scopeg2)" stroke="#1c2c3a"/>
+            <circle cx="100" cy="100" r="72" fill="none" stroke="#16323a"/><circle cx="100" cy="100" r="46" fill="none" stroke="#16323a"/><circle cx="100" cy="100" r="20" fill="none" stroke="#16323a"/>
+            <line x1="2" y1="100" x2="198" y2="100" stroke="#16323a"/><line x1="100" y1="2" x2="100" y2="198" stroke="#16323a"/>
+            <circle cx="148" cy="64" r="2.5" fill="#36e3c4" opacity="0.7"/><circle cx="72" cy="138" r="2" fill="#36e3c4" opacity="0.4"/>
+            <path d="M100 96 L106 110 L100 106 L94 110 Z" fill="#ff6a1a" opacity="0.85"/>
+          </svg>
+          <div class="scope__sweep"></div>
+        </div>
+      </div>
+      <div class="reveal d1">
+        <p class="kicker">Unparalleled transparency</p>
+        <h2 class="display" style="font-size:clamp(2.2rem,5.5vw,4rem); margin:16px 0 8px">Hard to see.<br>Harder to hit.</h2>
+        <ul class="radar__points" style="margin-top:24px">
+          <li><span class="tag">RADAR</span><div><h4>Below the radar horizon.</h4><p>At 30–50 cm the aircraft hides in sea clutter — flying super low makes it extremely hard to detect with radar.</p></div></li>
+          <li><span class="tag">SONAR</span><div><h4>Over the water, not in it.</h4><p>Airborne flight leaves no hull and no wake, so it is hard to detect with sonar.</p></div></li>
+          <li><span class="tag">GNSS-DENIED</span><div><h4>GPS-less navigation.</h4><p>Built to keep flying and fighting where satellite navigation is jammed or denied.</p></div></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- AVIONICS CONFIG MATRIX -->
+<section class="section" id="configs">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <p class="kicker">Avionics loadout</p>
+      <h2>Three builds, one airframe.</h2>
+      <p>A common 5.2 m platform scales from a flight-test article to a fully militarized production aircraft — controlling unit cost at volume.</p>
+    </div>
+    <div class="cmp-wrap reveal d1">
+      <table class="cmp">
+        <colgroup><col><col><col class="c-us"><col></colgroup>
+        <thead>
+          <tr>
+            <th scope="col">System</th>
+            <th scope="col">Cfg 1 — Flight-Test</th>
+            <th scope="col" class="us">Cfg 2 — Mission (COTS)</th>
+            <th scope="col">Cfg 3 — MIL-SPEC</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><th scope="row">Purpose</th><td>Full-scale flight-only validation</td><td class="us">End-to-end mission verification</td><td>Militarized production build</td></tr>
+          <tr><th scope="row">Flight controller</th><td>Pixhawk 6X (no Jetson)</td><td class="us">Holybro Pixhawk + Jetson baseboard</td><td>Custom MIL-SPEC FCC</td></tr>
+          <tr><th scope="row">AI compute</th><td>—</td><td class="us">Jetson Orin NX (integral)</td><td>AI SoM on custom board</td></tr>
+          <tr><th scope="row">GNSS</th><td>Holybro H-RTK F9P (dual RTK)</td><td class="us">Holybro H-RTK F9P (dual RTK)</td><td>Custom board w/ ZED-F9P</td></tr>
+          <tr><th scope="row">Airspeed</th><td>COTS single pitot</td><td class="us">COTS dual pitot</td><td>Custom air-data (dual)</td></tr>
+          <tr><th scope="row">Power dist.</th><td>PM02D + UBEC + BEC</td><td class="us">PM02D + UBEC + BEC</td><td>Custom PDB (eFuse + HV + monitor)</td></tr>
+          <tr><th scope="row">Mission payload</th><td>—</td><td class="us">EO/IR · MAD · maritime radar</td><td>EO/IR · MAD · maritime radar (mil)</td></tr>
+          <tr><th scope="row">Main datalink</th><td>SiK Radio 1W</td><td class="us">BluSDR (+ Starlink opt.)</td><td>BluSDR + Starlink</td></tr>
+          <tr><th scope="row">Mesh sub-link</th><td>WiFi HaLow</td><td class="us">WiFi HaLow</td><td>WiFi HaLow</td></tr>
+          <tr><th scope="row">Satcom</th><td>Starlink Maritime (opt.)</td><td class="us">Starlink Maritime (opt.)</td><td>Starlink Maritime</td></tr>
+          <tr><th scope="row">Connectors</th><td>IP67</td><td class="us">IP67</td><td>MIL-DTL-38999 circular</td></tr>
+          <tr><th scope="row">Simulation</th><td>Simulink + X-Plane (HIL)</td><td class="us">Simulink + X-Plane (HIL)</td><td>Simulink + X-Plane (HIL)</td></tr>
+          <tr><th scope="row">Cost / unit</th><td>Medium</td><td class="us">Medium–High</td><td>Highest (NRE + mil parts)</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="matrix-note reveal d1">// Primary goals — Cfg 1: de-risk full-scale flight · Cfg 2: validate end-to-end mission · Cfg 3: deployable militarized aircraft, controlled unit cost at volume.</p>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="section section--tight">
+  <div class="wrap">
+    <div class="cta-band reveal tick">
+      <p class="kicker kicker--center" style="justify-content:center; display:flex">Next</p>
+      <h2 class="display" style="margin-top:18px">See how it fights.</h2>
+      <p>Defence uses, swarm and minesweeping concepts of operation — all on one airframe.</p>
+      <div class="hero__cta">
+        <a class="btn btn--solid" href="index.html#capabilities">Capabilities &amp; CONOPS <span class="ar">→</span></a>
+        <a class="btn" href="company.html#contact">Contact us</a>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer class="footer">
+  <div class="wrap">
+    <div class="footer__grid">
+      <div class="footer__brand">
+        <a class="brand" href="index.html">
+          <svg class="brand__mark" viewBox="0 0 32 32" aria-hidden="true"><path d="M16 3 L30 28 L16 21 L2 28 Z" fill="currentColor"/></svg>
+          <span class="brand__type"><span class="brand__name">Pangea</span><span class="brand__sub">Ground · Effect · Defense</span></span>
+        </a>
+        <p>The ultrafast marine autonomous vehicle. Aircraft speed, on-water basing, a sub-radar signature — one platform for maritime security.</p>
+      </div>
+      <div class="footer__col"><h5>Platform</h5><a href="aircraft.html#anatomy">Anatomy</a><a href="aircraft.html#configs">Avionics</a><a href="aircraft.html#signature">Signature</a><a href="index.html#why">Why a GEV</a></div>
+      <div class="footer__col"><h5>Capabilities</h5><a href="index.html#capabilities">Defence uses</a><a href="index.html#conops">CONOPS</a><a href="index.html#landscape">Landscape</a></div>
+      <div class="footer__col"><h5>Company</h5><a href="company.html">About</a><a href="company.html#vision">Vision</a><a href="company.html#contact">Contact</a></div>
+    </div>
+    <div class="footer__bar">
+      <p>© <span id="yr">2026</span> Pangea Aerospace Systems — All rights reserved.</p>
+      <p class="footer__coord">25.2048° N · 55.2708° E · ABU DHABI · UAE</p>
+    </div>
+  </div>
+</footer>
+
+<script src="main.js"></script>
+</body>
+</html>
