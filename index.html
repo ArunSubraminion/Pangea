@@ -1,1 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pangea — Defense Systems for the Autonomous Age</title>
+<link rel="icon" type="image/png" href="assets/white_logo_transparent.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#000000; --bg-2:#070708; --panel:rgba(255,255,255,.02); --line:rgba(255,255,255,.10);
+    --text:#f2f3f5; --muted:#7d8189; --faint:#4a4d54; --accent:#c8ccd2;
+    --max:1240px;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--text);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  h1,h2,h3{font-weight:400;letter-spacing:-.02em;line-height:1.08}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:var(--max);margin:0 auto;padding:0 32px}
+  section{padding:130px 0;position:relative}
+  .eyebrow{font-size:11.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--muted);margin-bottom:34px;font-weight:500}
+  .eyebrow b{color:var(--text);font-weight:500}
+  .display{font-size:clamp(34px,5vw,62px);font-weight:300;letter-spacing:-.03em;max-width:900px}
+  .lead{color:var(--muted);font-size:18px;max-width:600px;margin-top:26px;font-weight:300}
+  .btn{display:inline-flex;align-items:center;gap:10px;padding:15px 30px;border-radius:2px;font-weight:400;font-size:13.5px;letter-spacing:.02em;transition:.35s;border:1px solid var(--line);text-transform:uppercase}
+  .btn:hover{background:#fff;color:#000;border-color:#fff}
+  .btn-plain{border:none;padding-left:0;color:var(--muted)}
+  .btn-plain:hover{background:none;color:#fff}
 
+  /* Nav */
+  nav{position:fixed;top:0;left:0;right:0;z-index:50;padding:22px 0;backdrop-filter:blur(14px);background:rgba(0,0,0,.55);border-bottom:1px solid rgba(255,255,255,.06)}
+  nav .wrap{display:flex;align-items:center;justify-content:space-between}
+  .logo{display:flex;align-items:center;gap:13px;font-weight:500;font-size:16px;letter-spacing:.32em}
+  .logo img{height:40px;width:auto;display:block}
+  .links{display:flex;gap:42px;font-size:12.5px;letter-spacing:.08em;color:var(--muted);text-transform:uppercase}
+  .links a{transition:.25s}.links a:hover{color:var(--text)}
+  .nav-cta{font-size:11.5px;padding:11px 22px}
+  .nav-right{display:flex;align-items:center;gap:18px}
+  .burger{display:none;width:34px;height:34px;border:none;background:none;cursor:pointer;flex-direction:column;justify-content:center;gap:6px;padding:0}
+  .burger span{display:block;height:1.5px;width:24px;background:var(--text);transition:.3s}
+  nav.open .burger span:nth-child(1){transform:translateY(7.5px) rotate(45deg)}
+  nav.open .burger span:nth-child(2){opacity:0}
+  nav.open .burger span:nth-child(3){transform:translateY(-7.5px) rotate(-45deg)}
+  .mobile-menu{display:none;position:fixed;top:0;left:0;right:0;z-index:49;background:rgba(0,0,0,.97);backdrop-filter:blur(20px);border-bottom:1px solid var(--line);padding:96px 0 34px;transform:translateY(-100%);transition:transform .38s cubic-bezier(.16,.8,.28,1)}
+  nav.open + .mobile-menu{transform:translateY(0)}
+  .mobile-menu a{display:block;padding:18px 32px;font-size:16px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);border-top:1px solid var(--line)}
+  .mobile-menu a:active{color:var(--text)}
+
+  /* Hero */
+  .hero{min-height:100vh;display:flex;align-items:center;position:relative;overflow:hidden}
+  .hero-media{position:absolute;inset:0;z-index:0}
+  .hero-media img{width:100%;height:100%;object-fit:cover;object-position:36% 55%;opacity:1;
+    -webkit-mask-image:linear-gradient(90deg,#000 44%,rgba(0,0,0,.35) 70%,transparent 94%);
+    mask-image:linear-gradient(90deg,#000 44%,rgba(0,0,0,.35) 70%,transparent 94%)}
+  .hero-media::after{content:"";position:absolute;inset:0;background:
+    linear-gradient(180deg,rgba(0,0,0,.5) 0%,transparent 22%,transparent 72%,rgba(0,0,0,.4) 100%)}
+  .grid-lines{position:absolute;inset:0;z-index:1;background-image:linear-gradient(rgba(255,255,255,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.03) 1px,transparent 1px);background-size:90px 90px;mask-image:radial-gradient(ellipse 80% 70% at 40% 40%,#000,transparent 75%)}
+  .hero .wrap{position:relative;z-index:2}
+  .hero h1{font-size:clamp(46px,7.5vw,104px);font-weight:200;letter-spacing:-.045em;max-width:960px;text-shadow:0 2px 30px rgba(0,0,0,.55)}
+  .hero h1 em{font-style:normal;color:#c4ccd6}
+  .hero p{font-size:clamp(16px,1.6vw,20px);color:#cfd4db;max-width:560px;margin:36px 0 46px;font-weight:300;text-shadow:0 1px 16px rgba(0,0,0,.7)}
+  .hero-actions{display:flex;gap:16px;flex-wrap:wrap}
+  .hero-actions .btn-plain{color:#cfd4db;text-shadow:0 1px 14px rgba(0,0,0,.7)}
+  .hero-actions .btn-plain:hover{color:#fff}
+  .hero-actions .btn:not(.btn-plain){background:rgba(0,0,0,.25);backdrop-filter:blur(4px)}
+  .scrollcue{position:absolute;left:32px;bottom:40px;font-size:11px;letter-spacing:.2em;color:var(--faint);text-transform:uppercase;z-index:1}
+
+  /* Section label row */
+  .metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border-top:1px solid var(--line);margin-top:70px}
+  .metric{padding:34px 34px 34px 0;border-right:1px solid var(--line)}
+  .metric:last-child{border-right:none;padding-right:0}
+  .metric b{font-family:'Space Grotesk',sans-serif;font-size:clamp(30px,3.5vw,44px);font-weight:400;display:block;letter-spacing:-.02em}
+  .metric span{color:var(--muted);font-size:13px;display:block;margin-top:10px;letter-spacing:.02em}
+
+  /* Product */
+  .product .display{max-width:820px}
+  .craft-view{margin-top:76px;border:1px solid var(--line);background:
+    radial-gradient(120% 100% at 50% 0%,rgba(120,140,170,.10),transparent 60%),
+    linear-gradient(180deg,#0a0b0d,#050506);display:grid;grid-template-columns:1.35fr 1fr;position:relative;overflow:hidden}
+  .craft-view::before{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.03) 1px,transparent 1px);background-size:52px 52px;mask-image:radial-gradient(ellipse 70% 70% at 50% 55%,#000,transparent 80%);pointer-events:none}
+  .craft-view .pane{padding:50px 40px;display:flex;align-items:center;justify-content:center;position:relative;min-height:340px}
+  .craft-view.single{grid-template-columns:1fr}
+  .craft-view.single .pane{min-height:400px;max-width:820px;margin:0 auto}
+  .craft-view.single img{max-width:640px}
+  .craft-view .pane:first-child{border-right:1px solid var(--line)}
+  .craft-view.single .pane:first-child{border-right:none}
+  .craft-view img{width:100%;height:auto;filter:drop-shadow(0 30px 60px rgba(0,0,0,.7)) drop-shadow(0 0 40px rgba(140,160,190,.12))}
+  .craft-view .cap{position:absolute;left:24px;bottom:20px;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--faint)}
+  .feat{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin-top:80px;border-top:1px solid var(--line)}
+  .feat > div{padding:38px 26px 0 0;border-right:1px solid var(--line)}
+  .feat > div:last-child{border-right:none}
+  .feat h3{font-size:17px;font-weight:500;margin-bottom:12px}
+  .feat p{color:var(--muted);font-size:14px;font-weight:300}
+  .feat .idx{font-family:'Space Grotesk',sans-serif;color:var(--faint);font-size:13px;margin-bottom:26px}
+
+  /* Solutions */
+  .solutions{background:var(--bg-2);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+  .sol-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);border:1px solid var(--line);margin-top:70px}
+  .sol{background:var(--bg);padding:56px 48px;position:relative;transition:.4s;min-height:420px;display:flex;flex-direction:column}
+  .sol:hover{background:#0b0c0e}
+  .sol .num{font-family:'Space Grotesk',sans-serif;font-size:13px;color:var(--faint);letter-spacing:.1em}
+  .sol h3{font-size:clamp(26px,2.6vw,34px);font-weight:300;margin:26px 0 18px;letter-spacing:-.02em}
+  .sol > p{color:var(--muted);font-size:15.5px;font-weight:300;max-width:440px}
+  .sol ul{list-style:none;margin-top:auto;padding-top:34px;display:grid;gap:0}
+  .sol li{display:flex;gap:16px;align-items:baseline;padding:16px 0;border-top:1px solid var(--line);font-size:14px}
+  .sol li .k{color:var(--muted);font-weight:300;font-size:12px;letter-spacing:.06em;text-transform:uppercase;min-width:110px}
+  .sol li .v{color:var(--text);font-weight:400}
+  .sol .art{position:absolute;top:48px;right:48px;color:var(--faint)}
+
+  /* Missions */
+  .missions .mgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);margin-top:70px}
+  .mission{background:var(--bg);padding:40px 36px;transition:.35s;min-height:200px}
+  .mission:hover{background:#0b0c0e}
+  .mission .idx{font-family:'Space Grotesk',sans-serif;color:var(--faint);font-size:13px;letter-spacing:.1em}
+  .mission h3{font-size:19px;font-weight:500;margin:22px 0 12px}
+  .mission p{color:var(--muted);font-size:14px;font-weight:300}
+
+  /* CONOPS / Dynamic jump */
+  .conops{border-top:1px solid var(--line);padding-bottom:60px;overflow:hidden}
+  .conops-figure{margin-top:24px;width:100%}
+  .conops-figure img{width:100%;height:auto;display:block}
+  .conops .cap{color:var(--muted);font-size:14px;font-weight:300;max-width:620px;margin-top:20px}
+
+  /* Advantage */
+  .advantage{background:var(--bg-2);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+  .adv-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0;margin-top:70px;border-top:1px solid var(--line)}
+  .adv{padding:44px 30px 0 0;border-right:1px solid var(--line)}
+  .adv:last-child{border-right:none}
+  .adv b{font-family:'Space Grotesk',sans-serif;font-size:clamp(34px,4vw,52px);font-weight:400;display:block;letter-spacing:-.02em}
+  .adv .t{font-size:15px;margin:14px 0 8px;font-weight:500}
+  .adv p{color:var(--muted);font-size:13.5px;font-weight:300}
+  .radar{margin-top:90px}
+  .radar-head{border-top:1px solid var(--line);padding-top:30px}
+  .radar-head h3{font-size:clamp(24px,2.4vw,32px);font-weight:300;letter-spacing:-.02em}
+  .radar-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);border:1px solid var(--line);margin-top:40px}
+  .radar-cell{background:#000;padding:44px 30px;text-align:center;position:relative;min-height:200px;display:flex;align-items:center;justify-content:center}
+  .radar-cell img{width:100%;max-width:400px;margin:0 auto;display:block}
+
+  /* Stack */
+  .stack-list{margin-top:70px;border-top:1px solid var(--line)}
+  .srow{display:grid;grid-template-columns:80px 1fr 1.4fr;gap:30px;padding:34px 0;border-bottom:1px solid var(--line);align-items:baseline;transition:.3s}
+  .srow:hover{padding-left:12px}
+  .srow .n{font-family:'Space Grotesk',sans-serif;color:var(--faint);font-size:14px}
+  .srow h3{font-size:22px;font-weight:400}
+  .srow p{color:var(--muted);font-size:15px;font-weight:300}
+  .badges{display:flex;gap:14px;flex-wrap:wrap;margin-top:50px}
+  .badge{border:1px solid var(--line);padding:10px 18px;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+  .badge b{color:var(--text);font-weight:500}
+
+  /* Contact */
+  .contact{text-align:left}
+  .contact .display{font-weight:200;max-width:760px}
+  .contact-actions{margin-top:60px;display:flex;flex-wrap:wrap;gap:60px;border-top:1px solid var(--line);padding-top:44px}
+  .cinfo small{display:block;color:var(--muted);font-size:11px;letter-spacing:.18em;text-transform:uppercase;margin-bottom:12px}
+  .cinfo a,.cinfo span{font-size:19px;font-weight:300;color:var(--text)}
+  .cinfo a:hover{color:var(--muted)}
+
+  footer{border-top:1px solid var(--line);padding:50px 0;color:var(--muted);font-size:12.5px;letter-spacing:.04em}
+  footer .wrap{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:20px}
+  footer .links{gap:30px;font-size:11.5px}
+  .disc{color:var(--faint);font-size:11px;max-width:640px;margin-top:22px;line-height:1.7}
+
+  .reveal{opacity:0;transform:translateY(26px);transition:.9s cubic-bezier(.16,.8,.28,1)}
+  .reveal.in{opacity:1;transform:none}
+
+  @media(max-width:940px){
+    .links{display:none}
+    .nav-cta{display:none}
+    .burger{display:flex}
+    .mobile-menu{display:block}
+    section{padding:90px 0}
+    .metrics,.feat,.sol-grid,.missions .mgrid,.adv-grid{grid-template-columns:1fr}
+    .metric,.feat > div,.adv{border-right:none;border-bottom:1px solid var(--line);padding:26px 0}
+    .srow{grid-template-columns:1fr;gap:10px}
+    .sol{min-height:auto;padding:40px 28px}
+    .wrap{padding:0 22px}
+    .scrollcue{display:none}
+  }
+  @media(max-width:560px){
+    .radar-grid{grid-template-columns:1fr}
+    .radar-cell{min-height:150px;padding:34px 24px}
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <a href="#top" class="logo">
+      <img src="assets/white_logo_transparent.png" alt="Pangea logo">
+      PANGEA
+    </a>
+    <div class="links">
+      <a href="#platform">Platform</a>
+      <a href="#solutions">Solutions</a>
+      <a href="#missions">Missions</a>
+      <a href="#advantage">Advantage</a>
+      <a href="#contact">Contact</a>
+    </div>
+    <div class="nav-right">
+      <a href="#contact" class="btn nav-cta">Get in touch</a>
+      <button class="burger" aria-label="Menu" aria-expanded="false"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</nav>
+<div class="mobile-menu">
+  <a href="#platform">Platform</a>
+  <a href="#solutions">Solutions</a>
+  <a href="#missions">Missions</a>
+  <a href="#advantage">Advantage</a>
+  <a href="#contact">Contact</a>
+  <a href="#contact">Get in touch →</a>
+</div>
+
+<!-- HERO -->
+<header class="hero" id="top">
+  <div class="hero-media"><img src="assets/hero-craft.webp" alt="Pangea ground-effect craft operating alongside a naval vessel"></div>
+  <div class="grid-lines"></div>
+  <div class="wrap">
+    <div class="eyebrow reveal in">Pangea / Defense for the autonomous age</div>
+    <h1 class="reveal in">Aircraft speed.<br><em>Boat basing.</em></h1>
+    <div class="hero-actions reveal in">
+      <a href="#platform" class="btn">Explore the platform</a>
+      <a href="#solutions" class="btn btn-plain">View solutions →</a>
+    </div>
+  </div>
+  <div class="scrollcue">Scroll ↓</div>
+</header>
+
+<!-- OPPORTUNITY -->
+<section id="opportunity">
+  <div class="wrap">
+    <div class="eyebrow reveal">Opportunity / <b>Where we're headed</b></div>
+    <h2 class="display reveal">Defense is rearming. Autonomy is taking share.</h2>
+    <p class="lead reveal">Pangea sits at the intersection of autonomy, mission software, maritime security and sovereign production — building owned capability from the airframe to the flight computer.</p>
+    <div class="metrics reveal">
+      <div class="metric"><b>Autonomy</b><span>AI-driven navigation and mission execution, crew-free</span></div>
+      <div class="metric"><b>Maritime</b><span>Surface-masked operation across the littoral domain</span></div>
+      <div class="metric"><b>Sovereign</b><span>ITAR-free, in-house hardware and production</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- PLATFORM / PRODUCT -->
+<section id="platform" class="product">
+  <div class="wrap">
+    <div class="eyebrow reveal">Platform / <b>What we build</b></div>
+    <h2 class="display reveal">U-MAV — a ground-effect craft that flies above the water.</h2>
+    <p class="lead reveal">Aircraft speed with the basing of a boat. Multi-role, surface-masked and fleet-scalable — it rides a cushion of high-pressure air just above the surface, then holds afloat between sorties.</p>
+    <div class="craft-view single reveal">
+      <div class="pane"><img src="assets/craft-side.png" alt="Pangea U-MAV — profile view"><span class="cap">A new defence mode is brewing</span></div>
+    </div>
+    <div class="feat">
+      <div class="reveal"><div class="idx">01</div><h3>Flies in ground effect</h3><p>Skims just above the water in a surface-masked, low-observable regime.</p></div>
+      <div class="reveal"><div class="idx">02</div><h3>Takes off from water</h3><p>Maritime-regulated operation — no runway, port or launch infrastructure.</p></div>
+      <div class="reveal"><div class="idx">03</div><h3>Afloat loiter</h3><p>Persistent hold on the surface between sorties, at near-zero energy cost.</p></div>
+      <div class="reveal"><div class="idx">04</div><h3>Fleet-scalable build</h3><p>Simple composite mono-structure engineered for volume production.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- SOLUTIONS -->
+<section id="solutions" class="solutions">
+  <div class="wrap">
+    <div class="eyebrow reveal">Solutions / <b>What we offer</b></div>
+    <h2 class="display reveal">One integrated stack.</h2>
+    <p class="lead reveal">From the airframe to the flight computer, Pangea owns the critical layers — sold as complete craft or as the avionics that power other platforms.</p>
+    <div class="sol-grid">
+      <div class="sol reveal">
+        <svg class="art" width="40" height="30" viewBox="0 0 52 40" fill="none"><path d="M4 36 L26 6 L48 36" stroke="#4a4d54" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <div class="num">01</div>
+        <h3>Ground effect craft</h3>
+        <p>Autonomous, surface-masked craft that fly in ground effect — fast, hard to detect, and able to base from open water. Configured for multi-role maritime missions and built to scale into fleets.</p>
+        <ul>
+          <li><span class="k">Domain</span><span class="v">Maritime, littoral & open water</span></li>
+          <li><span class="k">Operation</span><span class="v">Fully autonomous · crew-free</span></li>
+          <li><span class="k">Signature</span><span class="v">Surface-masked, low observable</span></li>
+        </ul>
+      </div>
+      <div class="sol reveal">
+        <svg class="art" width="34" height="34" viewBox="0 0 40 40" fill="none"><rect x="6" y="6" width="28" height="28" rx="2" stroke="#4a4d54" stroke-width="2"/><path d="M14 20 h12 M20 14 v12" stroke="#4a4d54" stroke-width="2"/></svg>
+        <div class="num">02</div>
+        <h3>Avionics solutions</h3>
+        <p>In-house flight-control and autonomy hardware — offered both as Pangea-branded systems and as drop-in replacements for open-source controllers like Pixhawk. Independent, supportable and free of foreign dependency.</p>
+        <ul>
+          <li><span class="k">In-house</span><span class="v">Pangea autonomy & flight computer</span></li>
+          <li><span class="k">Branded</span><span class="v">Pixhawk-class drop-in replacements</span></li>
+          <li><span class="k">Supply</span><span class="v">ITAR-free · independent production</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MISSIONS -->
+<section id="missions" class="missions">
+  <div class="wrap">
+    <div class="eyebrow reveal">Missions / <b>What it does</b></div>
+    <h2 class="display reveal">Multi-role across the maritime spectrum.</h2>
+    <p class="lead reveal">One platform, adapted through payload and autonomy — surveillance to strike support, all crew-free.</p>
+    <div class="mgrid">
+      <div class="mission reveal"><div class="idx">01</div><h3>Surveillance</h3><p>Shoreline patrol with radar and EO/IR cueing, holding afloat on station.</p></div>
+      <div class="mission reveal"><div class="idx">02</div><h3>Anti-piracy</h3><p>Rapid interdiction, overwatch and coordinated multi-vehicle response.</p></div>
+      <div class="mission reveal"><div class="idx">03</div><h3>Attack support</h3><p>Fast, low-signature approach carrying sensors, effectors or decoys.</p></div>
+      <div class="mission reveal"><div class="idx">04</div><h3>Minesweeping</h3><p>Light sweep and detection with GPS-denied navigation.</p></div>
+      <div class="mission reveal"><div class="idx">05</div><h3>Swarm operations</h3><p>Distributed ISR and effects across a mesh-linked vehicle fleet.</p></div>
+      <div class="mission reveal"><div class="idx">06</div><h3>Dynamic manoeuvre</h3><p>Momentary climb to clear obstacles or exploit gaps in coverage.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- CONOPS / DYNAMIC JUMP -->
+<section id="conops" class="conops">
+  <div class="wrap">
+    <div class="eyebrow reveal">Concept of operations / <b>Dynamic jump</b></div>
+    <h2 class="display reveal">Surface-masked, until the moment it isn't.</h2>
+    <div class="conops-figure reveal">
+      <img src="assets/dynamic-jump.png" alt="Dynamic jump: the craft runs silent and fast in ground effect, transitions into a vertical trajectory climbing to 150 m, and strikes a vessel's weak points from above">
+    </div>
+    <p class="cap reveal">The craft runs silent and fast in ground effect, then transitions into a vertical climb of up to 150 m — clearing obstacles and reaching a target's exposed points from an angle surface sensors don't expect.</p>
+  </div>
+</section>
+
+<!-- ADVANTAGE -->
+<section id="advantage" class="advantage">
+  <div class="wrap">
+    <div class="eyebrow reveal">Advantage / <b>Why it wins</b></div>
+    <h2 class="display reveal">Faster than boats. Stealthier than drones.</h2>
+    <div class="adv-grid">
+      <div class="adv reveal"><b>Faster</b><div class="t">Versus surface vessels</div><p>Aircraft-like transit speeds against displacement hulls, at a fraction of the fuel per mile.</p></div>
+      <div class="adv reveal"><b>Masked</b><div class="t">Versus UAVs & USVs</div><p>A low-observable radar, sonar and infrared profile held close to the surface.</p></div>
+      <div class="adv reveal"><b>Persistent</b><div class="t">Afloat loiter</div><p>Floats between sorties with effectively zero energy burn on station.</p></div>
+    </div>
+
+    <div class="radar reveal">
+      <div class="radar-head">
+        <h3>Radar transparency.</h3>
+      </div>
+      <div class="radar-grid">
+        <div class="radar-cell">
+          <img src="assets/radar-solid.png" alt="Pangea craft — physical form">
+        </div>
+        <div class="radar-cell">
+          <img src="assets/radar-transparent.png" alt="Pangea craft — low radar return">
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STACK / THESIS -->
+<section id="thesis">
+  <div class="wrap">
+    <div class="eyebrow reveal">Company / <b>The stack</b></div>
+    <h2 class="display reveal">Not just a drone company.</h2>
+    <p class="lead reveal">The craft is the first wedge into an integrated operating model — software, autonomy, owned hardware and production compounding across every product.</p>
+    <div class="stack-list reveal">
+      <div class="srow"><div class="n">01</div><h3>Pangea Command</h3><p>The mission software layer — planning, tasking and control.</p></div>
+      <div class="srow"><div class="n">02</div><h3>Pangea Core</h3><p>The autonomy and AI stack that flies and decides.</p></div>
+      <div class="srow"><div class="n">03</div><h3>Pangea Systems</h3><p>Home-grown hardware and avionics. Fully independent.</p></div>
+      <div class="srow"><div class="n">04</div><h3>Pangea Forge</h3><p>Sovereign production and industrialisation at scale.</p></div>
+    </div>
+    <div class="badges reveal">
+      <div class="badge"><b>ITAR-free</b></div>
+      <div class="badge"><b>0%</b> foreign-controlled dependency</div>
+      <div class="badge">Hardware <b>+</b> Software <b>+</b> Production</div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="contact">
+  <div class="wrap">
+    <div class="eyebrow reveal">Contact / <b>Work with us</b></div>
+    <h2 class="display reveal">Let's build the surface fleet.</h2>
+    <div class="contact-actions reveal">
+      <div class="cinfo">
+        <small>General</small>
+        <a href="mailto:founders@pangeacraft.com">founders@pangeacraft.com</a>
+      </div>
+      <div class="cinfo">
+        <small>Presence</small>
+        <span>UAE · United States · Europe</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div>
+      <div class="logo" style="margin-bottom:14px">
+        <img src="assets/white_logo_transparent.png" alt="Pangea logo" style="opacity:.55">
+        PANGEA
+      </div>
+      <div class="disc">© 2026 Pangea. Defense systems for the autonomous age. This site is for general information only and does not constitute an offer to sell or a solicitation of any securities.</div>
+    </div>
+    <div class="links"><a href="#platform">Platform</a><a href="#solutions">Solutions</a><a href="#contact">Contact</a></div>
+  </div>
+</footer>
+
+<script>
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, { threshold: .12 });
+  document.querySelectorAll('.reveal:not(.in)').forEach(el => io.observe(el));
+
+  const nav = document.querySelector('nav');
+  const burger = document.querySelector('.burger');
+  const closeMenu = () => { nav.classList.remove('open'); burger.setAttribute('aria-expanded','false'); };
+  burger.addEventListener('click', () => {
+    const open = nav.classList.toggle('open');
+    burger.setAttribute('aria-expanded', open ? 'true' : 'false');
+  });
+  document.querySelectorAll('.mobile-menu a').forEach(a => a.addEventListener('click', closeMenu));
+</script>
+</body>
+</html>
